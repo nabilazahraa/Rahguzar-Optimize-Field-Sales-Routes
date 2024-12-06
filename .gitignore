@@ -20,7 +20,7 @@
 *.vrb
 *.bcf
 *.run.xml
-
+*.aux
 # Backup and temporary files
 *.bak
 *.backup
