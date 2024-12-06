@@ -1,0 +1,99 @@
+% \section{Purpose and Scope}
+% % This Software Requirements Specification (SRS) document provides a detailed description of the functionalities, requirements, and architecture for the Route Optimization System. It will serve as a guide for the development team to build the software as per the specified requirements.
+
+% The purpose of this Software Requirements Specification (SRS) document is to outline the software and system requirements for the development of our project Rahguzar, an AI-driven route optimization system. This system aims to address inefficiencies in manual route planning within the retail and distribution sectors, improving operational efficiency and reducing environmental impacts. 
+
+% This document covers both the functional requirements, describing what the system should do, along with the non-functional requirements specifying the system’s performance, scalability, and usability criteria. Moreover, the document includes system block diagrams to visualize system interactions, use cases, and external interfaces, giving a clear and precise idea of the system design and development. 
+
+
+% \section{Feedback from Presentation}
+% % Based on the feedback received during the presentation, additional features like user-friendly mobile compatibility and scalability for larger data volumes were incorporated.
+% The feedback received after the proposal presentation to us is summarized below: 
+
+% \begin{itemize}
+%     \item \textbf{Expand Literature Review:} Include both AI and non-AI solutions in the literature review to focus on best practices and successful case studies in route optimization. Non-AI methods such as mathematical models and heuristic methods need to be explored.
+
+%     \item \textbf{Clear Parameter Identification:} Clearly define key route optimization parameters, including distance, time windows, traffic, and scalability metrics, for precise algorithm development and performance evaluation.
+
+%     \item \textbf{Gantt Chart Agility: }Suggested discussing potential challenges and making the Gantt chart more agile.
+
+% \end{itemize}
+
+
+\section{Problem Statement}
+
+In the vast fields of retail and distribution, route planning for field representatives is often done manually. This leads to multiple inefficiencies such as increased travel times, missed sales opportunities, and higher operational costs. Traditional manual route planning can be ineffective as it does not account for multiple critical variables such as traffic patterns, store service hours, and location-based priorities. This results in suboptimal routes that require more fuel consumption and increased travel costs. 
+
+Our proposed solution, Rahguzar, aims to address these challenges by automating route optimization using advanced algorithms, minimizing travel time, and enhancing productivity. This way, we aim to provide better and optimized routes with the potential for significant time and cost savings and a reduction in carbon footprint.
+
+\section{Proposed Solution}
+
+The proposed solution, Rahguzar, will be a web-based application that will use an algorithm to optimize routes for field representatives including but not limited to merchandisers, sales representatives, and order bookers. Our algorithm will take variables such as shift times, store profiles, service hours, store priority parameters, and historical traffic data to predict the routes and timings accordingly. This comprehensive approach ensures tailored routes for each representative, maximizing route efficiency and aligning with specific business goals. 
+
+The solution will provide interactive map interface where managers will have certain features available to them such as visualizing, adjusting, and scheduling visits on a daily, weekly, or monthly basis. The system’s capabilities aim to reduce travel time, operational costs, and environmental impacts.
+
+% This section gives a summary of our proposed solution, i.e. how does it solve the problem? An overview of the system is provided. A detailed description of each module of the system is presented later in Chapter ~\ref{chap:intro}.
+
+\section{Intended User}
+
+The primary users of Rahguzar include:
+
+\begin{itemize}
+
+    \item \textbf{Managers:} Responsible for creating, adjusting, and scheduling optimized routes for field representatives. They use the system’s map interface to visualize and fine-tune routes as needed. They can create these routes based on a daily, weekly, or a monthly basis.
+
+    \item \textbf{Field Representatives:} Sales representatives, order bookers, and other field staff who receive pre-defined routes and visit the set of locations assigned to them.
+
+    % \item \textbf{Admin/IT Personnel:} Oversee system management, manage user accounts, and ensure data security and system integrity.
+    
+\end{itemize}
+
+
+\section{Project Gantt chart and deliverables}
+
+Deliverables for Kaavish I:
+\begin{itemize}
+    \item Requirements Specification Document
+    \item System Architecture \& Design Diagram
+    \item Prototype for Frontend and Backend Components
+    \item Fully Developed Route Optimization Algorithm
+    \item Performance and Evaluation Report
+\end{itemize}
+Deliverables for Kaavish II:
+\begin{itemize}
+    \item Comparison with existing Algorithms and improvements
+    \item User-friendly web application with map interface
+    \item Performance Metrics Dashboard
+    \item Pilot Testing Framework and Results
+    \item Final Project Documentation and Evaluation Report
+\end{itemize}
+
+
+
+\begin{center}
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{images/Rahguzar (2)-1.png} 
+        \caption{Project Gantt Chart}
+    \end{figure}
+\end{center}
+
+\section{Key Challenges}
+
+Key challenges anticipated in our project will include:
+
+\begin{itemize}
+
+    \item \textbf{Data Complexity and Integration:} Integrating diverse datasets such as store profiles and geographic data, is complex and requires rigorous data reconciliation. \\
+    \textbf{Solution:} Use specialized libraries to streamline data handling and implement iterative testing phases to identify integration issues early.
+
+    \item \textbf{Multi-Objective Optimization:} Balancing multiple route optimization criteria (time, cost, distance, etc.) is challenging. \\
+    \textbf{Solution:} Apply a weighted scoring system to prioritize objectives and compare outputs from different algorithms to determine efficiency among them.
+
+    \item \textbf{API Costs and Performance:} Heavy reliance on Google Maps API may incur costs and slow performance. \\
+    \textbf{Solution:} Implement efficient API usage practices, such as batch processing, to minimize calls and costs. Moreover, we aim to utilize the trial phases of these services to implement them in our project. 
+
+    \item \textbf{Adaptability for Business-Specific Constraints:} Organizations may have unique, varying constraints that the model needs to accommodate flexibly. \\
+    \textbf{Solution:} Allow customization of route parameters and provide managers with control to manually adjust routes based on specific business needs.
+    
+\end{itemize}
