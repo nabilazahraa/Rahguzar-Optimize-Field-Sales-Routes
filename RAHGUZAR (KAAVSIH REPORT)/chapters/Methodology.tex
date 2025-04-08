@@ -1,2 +1,138 @@
 
-The methodology of the Rahguzar project was grounded in a research-oriented approach aimed at addressing a real-world optimization challenge in the FMCG industry: generating efficient, constraint-satisfying Permanent Journey Plans (PJPs). Rather than relying solely on engineering practices, our methodology involved systematic investigation, experimentation, and evaluation of multiple algorithmic strategies to determine the most effective approach for automating and improving journey plan generation.
+The methodology for Rahguzar was designed as a structured, research-driven response to the operational inefficiencies in manual Permanent Journey Plan (PJP) scheduling. The project aimed to generate optimized PJPs that adhered to real-world constraints in the FMCG distribution landscape of Pakistan. Given the scale and complexity of the problem, we adopted a modular and algorithmically hybrid approach, structured into three main phases: Clustering, Scheduling, and Route Optimization.
+
+Our methodology combined custom algorithm development with empirical evaluation on real-world datasets. This allowed us to balance theoretical rigor with practical usability, ensuring that the final solution could be deployed under real operational conditions.
+
+
+\section{Problem Formulation}
+
+The PJP problem is modeled as a weekly, constraint-aware variation of the VRPTW. Given a set of stores with known coordinates, visit frequencies, service durations, and territory assignments, the objective is to generate an optimized journey plan for each order booker such that:
+
+\begin{itemize}
+  \item Store visits satisfy required weekly frequencies
+  \item Visits are spaced evenly across working days
+  \item Total route time (travel + service) per day remains within shift limits (typically 8 hours)
+  \item Order booker workload is balanced across the team
+  \item Routes are geographically compact and operationally realistic
+\end{itemize}
+
+Due to the NP-hard nature of the problem, exact optimization methods are impractical at city scale. Instead, we use a hybrid, heuristic-based approach structured into three phases.
+
+\section{Three-Phase Algorithmic Architecture}
+
+\subsection{Clustering}
+
+The clustering phase assigns stores to order bookers through a hybrid clustering pipeline that balances geographic proximity with workload equity. It includes:
+
+\begin{itemize}
+  \item \textbf{Graph-Based Clustering:} A minimum spanning tree (MST) is constructed from store locations to group nearby stores into initial clusters.
+  \item \textbf{K-Means Refinement:} Each graph-based cluster is refined by minimizing intra-cluster variance. The centroid $C_i$ of each cluster is updated as:
+  \[
+  C_i = \frac{1}{N_i} \sum_{x \in S_i} x
+  \]
+  \item \textbf{Outlier Reassignment:} Stores that lie significantly far from their assigned cluster centroid are identified using:
+  \[
+  D_{s,c} > \mu + \sigma \cdot k
+  \]
+  and reassigned to the nearest neighboring cluster.
+  \item \textbf{Workload Balancing:} Store workloads are redistributed by minimizing the squared workload error:
+  \[
+  SSE = \sum_{c} (W_c - \bar{W})^2
+  \]
+\end{itemize}
+
+\subsection{Scheduling}
+
+After clustering, each order booker's list of stores is scheduled across the working week using a custom \textit{Evolutionary Algorithm (EA)}. The EA process includes:
+
+\begin{itemize}
+  \item \textbf{Population Initialization:} Initial schedules are generated randomly and based on geographic heuristics.
+  \item \textbf{Fitness Evaluation:} Each schedule is evaluated using:
+  \[
+  F = T_{\text{total}} + P_{\text{mismatch}} + P_{\text{imbalance}} + P_{\text{geo}}
+  \]
+  \item \textbf{Constraints:} Daily workload must satisfy:
+  \[
+  T_{\text{day}} = \sum_{i=1}^{n} T_{\text{travel},i} + \sum_{i=1}^{n} T_{\text{service},i} \leq 480
+  \]
+  \item \textbf{Crossover and Mutation:} Tournament selection, crossover, and mutation operations are used to refine schedules across generations.
+\end{itemize}
+
+\subsection{Route Optimization}
+
+For each day’s assigned store list, visits are sequenced using \textit{Ant Colony Optimization (ACO)}. The probability of visiting store $j$ from $i$ is:
+
+\[
+P_{ij} = \frac{(\tau_{ij})^\alpha (\eta_{ij})^\beta}{\sum_{k \in N_i} (\tau_{ik})^\alpha (\eta_{ik})^\beta}
+\]
+
+Pheromone trails are updated as:
+\[
+\tau_{ij} = (1 - \rho) \cdot \tau_{ij} + \sum_{\text{ants}} \Delta \tau_{ij} \quad \text{where} \quad \Delta \tau_{ij} = \frac{Q}{L_k}
+\]
+
+
+\noindent Parameters used:
+\begin{itemize}
+  \item $\alpha = 1$, $\beta = 3$ (pheromone and distance influence)
+  \item $\rho = 0.1$ (evaporation rate), $Q = 1$ (pheromone deposit factor)
+  \item $L_k$: route length of ant $k$
+\end{itemize}
+
+Distances and travel times are computed using the OSRM backend for real-world accuracy.
+
+\section{Data Preprocessing Strategy}
+
+The input datasets were provided by SalesFlo in Excel format. The preprocessing pipeline involved:
+
+\begin{itemize}
+  \item Parsing and cleaning using Python
+  \item Merging datasets by unique store identifiers
+  \item Migrating structured data into a PostgreSQL database
+  \item Filtering stores by operational zones for the pilot phase
+\end{itemize}
+
+This ensured consistency and readiness for integration into the optimization pipeline.
+
+\section{Assumptions}
+
+To maintain focus and computational tractability, the following assumptions were made:
+
+\begin{itemize}
+  \item Static average travel times are used; live traffic is not modeled
+  \item Each route begins and ends at a fixed distributor
+  \item Store service durations are known and fixed
+  \item Planning is performed on a weekly horizon excluding Sundays
+\end{itemize}
+
+\section{Algorithmic Complexity}
+
+Rahguzar’s modular pipeline breaks the PJP problem into three heuristically optimized stages: clustering, scheduling, and routing. While the overall problem is NP-hard, each component is designed to ensure scalability through local heuristics and bounded iterations.
+
+\begin{itemize}
+  \item \textbf{Clustering:} Graph-based clustering is performed using pairwise haversine distances with complexity $O(n^2)$, followed by K-Means refinement ($O(nki)$) and outlier reassignment ($O(n)$). This phase is executed once and scales well for realistic values of $n$ (number of stores) and $k$ (number of order bookers).
+
+  \item \textbf{Scheduling (EA):} The Evolutionary Algorithm runs for $G_{EA}$ generations (typically 80–100) with a population size $P$ (typically 40–50). Fitness evaluation includes total route time, visit frequency matching, and workload balancing. Complexity per generation is $O(P \cdot n)$, giving:
+  \[
+  O(P \cdot n \cdot G_{EA})
+  \]
+
+  \item \textbf{Routing (ACO):} For each daily route of $r$ stores (where $r$ is typically 10–25), Ant Colony Optimization runs $m$ ants (usually 6–7) for $G_{ACO}$ generations (15–20 iterations). The per-route complexity is:
+  \[
+  O(m \cdot r^2 \cdot G_{ACO})
+  \]
+  Over all $n$ stores (divided across clusters and days), the total routing complexity is approximated as:
+  \[
+  O(n \cdot m \cdot r \cdot G_{ACO})
+  \]
+\end{itemize}
+
+\textbf{Total System Complexity:}
+
+Combining the three stages, the total time complexity of Rahguzar’s algorithm is:
+
+\[
+O(n^2 + nk + P \cdot n \cdot G_{EA} + n \cdot m \cdot r \cdot G_{ACO})
+\]
+
+This formulation reflects both theoretical bounds and empirical performance. In practice, early stopping, parallelism, and per-cluster decomposition significantly reduce runtime. Rahguzar consistently generated optimized plans for hundreds of stores in under 5 minutes on a standard multi-core machine.
