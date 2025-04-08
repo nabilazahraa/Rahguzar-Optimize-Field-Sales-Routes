@@ -1,0 +1,39 @@
+The development of Rahguzar was guided by the goal of building a robust, scalable, and user-friendly platform capable of automating Permanent Journey Plan (PJP) scheduling in FMCG field operations. The project was developed in phases, each aligning with different milestones from backend API construction to frontend deployment, database integration, and cloud migration.
+
+\section{Backend Development and API Architecture}
+The backend of Rahguzar was developed using Flask, a lightweight Python-based microframework. Flask was chosen for its flexibility and simplicity, allowing us to quickly develop RESTful APIs that catered to the core functionalities of route generation, user management, and data synchronization. The API layer served as the communication bridge between the frontend and the backend logic, as well as with third-party services like Google Maps.
+
+The route optimization engine was integrated into this backend stack using custom Python scripts and OR-Tools for solving routing problems. This engine consumed input parameters—such as store locations, visit frequencies, shift timings, and the number of available order bookers—and returned optimized PJPs. These responses were served through API endpoints that exposed functionalities for plan generation, route export, real-time updates, and manual overrides.
+
+Throughout development, emphasis was placed on designing clean, modular API endpoints. Authentication and authorization mechanisms were implemented using JSON Web Tokens (JWT), ensuring secure access control for different types of users, particularly field managers.
+
+\section{Frontend Development with React}
+The frontend was implemented using React, which offered a highly responsive and component-driven interface for interacting with Rahguzar's planning and monitoring features. React’s ability to efficiently manage state and update the DOM in real-time was crucial for building features like dynamic map rendering, drag-and-drop store reordering, and dashboard KPI tracking.
+
+The user interface included several key screens such as the sign-in and registration pages, a dashboard with route statistics, a map-based route planner, and modules for viewing stores and journeys. Special attention was given to providing managers with a seamless experience for planning, editing, and visualizing routes, supported by an interactive map powered by the Google Maps API.
+
+Frontend and backend integration was handled via asynchronous API calls using Axios. These calls ensured real-time feedback during route planning sessions, allowing users to view updated PJPs instantly after adjusting route parameters or filters.
+
+\section{Database Design and Integration}
+Initially, PostgreSQL was selected as the relational database for managing store profiles, visit logs, user data, and system configurations. The schema was normalized and designed to accommodate the system's growing need for relational queries, especially during the optimization phase where data consistency and referential integrity were crucial.
+
+The data design followed an entity-relationship model, with core tables representing stores, visits, routes, and users. Each route was linked to a cluster of stores and assigned to specific order bookers based on availability and priority. Visit records captured timestamps, sync states, and performance metrics for later analysis.
+
+During development, we encountered limitations with local hosting, especially as the dataset size and user load increased. This led to the decision to migrate the database to a cloud-hosted environment.
+
+\section{Migration to AWS RDS}
+To ensure scalability, reliability, and availability, the PostgreSQL database was migrated to Amazon Web Services Relational Database Service (AWS RDS). AWS RDS provided automatic backups, failover capabilities, and monitoring tools that were critical as the project moved into pilot testing and real-world deployment phases.
+
+The migration involved exporting local database snapshots and restoring them to a provisioned PostgreSQL RDS instance. We reconfigured the Flask backend to connect to the cloud-hosted instance, updated environment variables for security, and used role-based permissions for managing database access. After thorough testing, this transition significantly improved system performance, particularly in handling concurrent API requests and large data queries during route generation and visualization.
+
+AWS RDS also allowed for better integration with other cloud services, laying the foundation for scaling Rahguzar beyond the initial pilot regions.
+
+\section{Integration with External Services}
+Mapping functionality was powered by the Google Maps API, which was integrated into both the backend and frontend layers. On the backend, it was used to compute distance matrices between store locations for the route optimization engine. On the frontend, it enabled real-time map rendering, location-based filtering, and drawing of optimized route paths.
+
+Additionally, Geopy was used for geospatial computations, such as distance calculations and reverse geocoding, complementing the Google Maps integration. These services allowed for a smooth and data-accurate user experience when planning and viewing routes.
+
+\section{Testing and Deployment}
+Throughout development, both unit and integration tests were written to ensure API stability and frontend-backend communication integrity. Postman and pytest were used for backend testing, while Cypress and manual QA testing supported frontend validation.
+
+The final deployment used an EC2-based architecture for the backend Flask server, React served via an S3 bucket and CloudFront, and PostgreSQL managed through AWS RDS. This cloud-based setup ensured high uptime, fast response times, and readiness for real-world deployment at scale.

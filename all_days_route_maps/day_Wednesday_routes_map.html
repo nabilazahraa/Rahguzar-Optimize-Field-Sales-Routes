@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b573b4211f494ee1994c5cde19ee72a2 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+                <div style="position: fixed; 
+                            bottom: 50px; left: 300px; width: 250px; height: 200px; 
+                            border:2px solid grey; z-index:9999; font-size:14px;
+                            background-color:white;
+                            overflow: auto;
+                            ">
+                &nbsp;<b>Day Routes Legend</b><br>
+                &nbsp;<i class="fa fa-road" style="color:#1f77b4"></i>&nbsp;Orderbooker 1<br></div>
+    
+            <div class="folium-map" id="map_b573b4211f494ee1994c5cde19ee72a2" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b573b4211f494ee1994c5cde19ee72a2 = L.map(
+                "map_b573b4211f494ee1994c5cde19ee72a2",
+                {
+                    center: [27.761563295238094, 68.09244602380952],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_256fc648f88b908fb56459ffd1b879fe = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_256fc648f88b908fb56459ffd1b879fe.addTo(map_b573b4211f494ee1994c5cde19ee72a2);
+        
+    
+            var feature_group_6db3e8add29effb598adae8fc87e7f47 = L.featureGroup(
+                {}
+            );
+        
+    
+            var poly_line_6633880ee454abbec416dad69234ad9f = L.polyline(
+                [[27.7616711, 68.0920596], [27.7618269, 68.0920425], [27.761757, 68.0920228], [27.7616602, 68.092016], [27.7611375, 68.092605], [27.7609778, 68.0956914], [27.7609445, 68.095386]],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#1f77b4", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_6db3e8add29effb598adae8fc87e7f47);
+        
+    
+        var popup_d3149a703740102a26d8911d45a99690 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_975c9b9922ac5e65f7df28c8ad24b845 = $(`<div id="html_975c9b9922ac5e65f7df28c8ad24b845" style="width: 100.0%; height: 100.0%;">Orderbooker 1 - Day Wednesday</div>`)[0];
+                popup_d3149a703740102a26d8911d45a99690.setContent(html_975c9b9922ac5e65f7df28c8ad24b845);
+            
+        
+
+        poly_line_6633880ee454abbec416dad69234ad9f.bindPopup(popup_d3149a703740102a26d8911d45a99690)
+        ;
+
+        
+    
+    
+            var marker_e348dffccc9f75017331b41df4b8175d = L.marker(
+                [27.7616711, 68.0920596],
+                {}
+            ).addTo(feature_group_6db3e8add29effb598adae8fc87e7f47);
+        
+    
+            var icon_2f931c4dc817f7444c78d5ee48f0e0b0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "play", "iconColor": "white", "markerColor": "#1f77b4", "prefix": "fa"}
+            );
+            marker_e348dffccc9f75017331b41df4b8175d.setIcon(icon_2f931c4dc817f7444c78d5ee48f0e0b0);
+        
+    
+        var popup_85de5844d3bd40c68cca48ea0328351e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9241881c7c56b4229f288e670abedda8 = $(`<div id="html_9241881c7c56b4229f288e670abedda8" style="width: 100.0%; height: 100.0%;">Orderbooker 1 Start</div>`)[0];
+                popup_85de5844d3bd40c68cca48ea0328351e.setContent(html_9241881c7c56b4229f288e670abedda8);
+            
+        
+
+        marker_e348dffccc9f75017331b41df4b8175d.bindPopup(popup_85de5844d3bd40c68cca48ea0328351e)
+        ;
+
+        
+    
+    
+            var marker_495c6d9169646c7bd2346bf074829818 = L.marker(
+                [27.7609445, 68.095386],
+                {}
+            ).addTo(feature_group_6db3e8add29effb598adae8fc87e7f47);
+        
+    
+            var icon_32d6a75e6243f104847804979143c2bc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "stop", "iconColor": "white", "markerColor": "#1f77b4", "prefix": "fa"}
+            );
+            marker_495c6d9169646c7bd2346bf074829818.setIcon(icon_32d6a75e6243f104847804979143c2bc);
+        
+    
+        var popup_212a931e6dee2f2edd0773bc2ab034fe = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_dff52e1a3b033e98c5a869e523d2f9df = $(`<div id="html_dff52e1a3b033e98c5a869e523d2f9df" style="width: 100.0%; height: 100.0%;">Orderbooker 1 End</div>`)[0];
+                popup_212a931e6dee2f2edd0773bc2ab034fe.setContent(html_dff52e1a3b033e98c5a869e523d2f9df);
+            
+        
+
+        marker_495c6d9169646c7bd2346bf074829818.bindPopup(popup_212a931e6dee2f2edd0773bc2ab034fe)
+        ;
+
+        
+    
+    
+            feature_group_6db3e8add29effb598adae8fc87e7f47.addTo(map_b573b4211f494ee1994c5cde19ee72a2);
+        
+    
+            var layer_control_eaf8d4510e2c6f024f23d6f83d52b4de_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_256fc648f88b908fb56459ffd1b879fe,
+                },
+                overlays :  {
+                    "Day Wednesday Routes" : feature_group_6db3e8add29effb598adae8fc87e7f47,
+                },
+            };
+            let layer_control_eaf8d4510e2c6f024f23d6f83d52b4de = L.control.layers(
+                layer_control_eaf8d4510e2c6f024f23d6f83d52b4de_layers.base_layers,
+                layer_control_eaf8d4510e2c6f024f23d6f83d52b4de_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_b573b4211f494ee1994c5cde19ee72a2);
+
+        
+</script>
+</html>

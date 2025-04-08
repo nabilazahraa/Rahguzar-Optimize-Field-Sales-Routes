@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_81da7f3a15ec40754b6ea0261fee14ec {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+             <div style="position: fixed; 
+                         bottom: 50px; left: 300px; width: 250px; height: 200px; 
+                         border:2px solid grey; z-index:9999; font-size:14px;
+                         background-color:white;
+                         overflow: auto;
+                         ">
+             &nbsp;<b>Day 1 Routes Legend</b><br>
+             &nbsp;<i class="fa fa-road" style="color:#1f77b4"></i>&nbsp;Orderbooker 1<br></div>
+    
+            <div class="folium-map" id="map_81da7f3a15ec40754b6ea0261fee14ec" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_81da7f3a15ec40754b6ea0261fee14ec = L.map(
+                "map_81da7f3a15ec40754b6ea0261fee14ec",
+                {
+                    center: [27.761563295238094, 68.09244602380952],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_2e5241348858d87c183a1f3e95a0c96b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_2e5241348858d87c183a1f3e95a0c96b.addTo(map_81da7f3a15ec40754b6ea0261fee14ec);
+        
+    
+            var feature_group_82f5075085406a53909fa969137f08ab = L.featureGroup(
+                {}
+            );
+        
+    
+            var poly_line_e3c086f0a5818179c63179e1808013f9 = L.polyline(
+                [[27.7616711, 68.0920596], [27.7617285, 68.0920703], [27.7618601, 68.0920398], [27.7618978, 68.0921293], [27.7617343, 68.0921062], [27.7613806, 68.0936248], [27.7607075, 68.0961996]],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#1f77b4", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_82f5075085406a53909fa969137f08ab);
+        
+    
+        var popup_09cdfba18a062c79597d4429df549dd4 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4515868dc9835a85ef9933f525957a63 = $(`<div id="html_4515868dc9835a85ef9933f525957a63" style="width: 100.0%; height: 100.0%;">Orderbooker 1 - Day Monday</div>`)[0];
+                popup_09cdfba18a062c79597d4429df549dd4.setContent(html_4515868dc9835a85ef9933f525957a63);
+            
+        
+
+        poly_line_e3c086f0a5818179c63179e1808013f9.bindPopup(popup_09cdfba18a062c79597d4429df549dd4)
+        ;
+
+        
+    
+    
+            var marker_fe647e59a873d21381c5286cc5896221 = L.marker(
+                [27.7616711, 68.0920596],
+                {}
+            ).addTo(feature_group_82f5075085406a53909fa969137f08ab);
+        
+    
+            var icon_bb1ef7a71d5c3991f2462c07cccf1944 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "play", "iconColor": "white", "markerColor": "#1f77b4", "prefix": "fa"}
+            );
+            marker_fe647e59a873d21381c5286cc5896221.setIcon(icon_bb1ef7a71d5c3991f2462c07cccf1944);
+        
+    
+        var popup_33d24255c6635629b7060dd09e89656b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_75977010e6fc954b74b1b5c950f27ea5 = $(`<div id="html_75977010e6fc954b74b1b5c950f27ea5" style="width: 100.0%; height: 100.0%;">Orderbooker 1 Start</div>`)[0];
+                popup_33d24255c6635629b7060dd09e89656b.setContent(html_75977010e6fc954b74b1b5c950f27ea5);
+            
+        
+
+        marker_fe647e59a873d21381c5286cc5896221.bindPopup(popup_33d24255c6635629b7060dd09e89656b)
+        ;
+
+        
+    
+    
+            var marker_7f062604b13f22d8288eceaea7deab03 = L.marker(
+                [27.7607075, 68.0961996],
+                {}
+            ).addTo(feature_group_82f5075085406a53909fa969137f08ab);
+        
+    
+            var icon_8d478b52c230f0fbe79f31cec133820d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "stop", "iconColor": "white", "markerColor": "#1f77b4", "prefix": "fa"}
+            );
+            marker_7f062604b13f22d8288eceaea7deab03.setIcon(icon_8d478b52c230f0fbe79f31cec133820d);
+        
+    
+        var popup_8245040cc0ab16b4f8b9dab6e184cbcd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1dfdab81d91311062b55019d20fafa12 = $(`<div id="html_1dfdab81d91311062b55019d20fafa12" style="width: 100.0%; height: 100.0%;">Orderbooker 1 End</div>`)[0];
+                popup_8245040cc0ab16b4f8b9dab6e184cbcd.setContent(html_1dfdab81d91311062b55019d20fafa12);
+            
+        
+
+        marker_7f062604b13f22d8288eceaea7deab03.bindPopup(popup_8245040cc0ab16b4f8b9dab6e184cbcd)
+        ;
+
+        
+    
+    
+            feature_group_82f5075085406a53909fa969137f08ab.addTo(map_81da7f3a15ec40754b6ea0261fee14ec);
+        
+    
+            var layer_control_ee3eaff79f3d61ab265981105406ee17_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_2e5241348858d87c183a1f3e95a0c96b,
+                },
+                overlays :  {
+                    "Day 1 Routes" : feature_group_82f5075085406a53909fa969137f08ab,
+                },
+            };
+            let layer_control_ee3eaff79f3d61ab265981105406ee17 = L.control.layers(
+                layer_control_ee3eaff79f3d61ab265981105406ee17_layers.base_layers,
+                layer_control_ee3eaff79f3d61ab265981105406ee17_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_81da7f3a15ec40754b6ea0261fee14ec);
+
+        
+</script>
+</html>
