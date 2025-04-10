@@ -5,8 +5,81 @@ This section presents the methodology and results from a series of experiments c
 
 
 
-\subsection{Phase 1: Hybrid Algorithmic Approach}
+\subsection{Phase 1: Hybrid Clustering Approach}
 % Phase 1 content to be added later.
+The first aim of the algorithm is to divide the list of stores to be serviced into a number of clusters which is determined by the number of orderbookers.
+The objective is to group close stores in the same cluster, so that the orderbookers can service them as the scheduler will decide.
+To achieve this, clustering algorithms were tested on their own adn in a hybrid approach.
+
+\subsubsection{Clustering Algorithms Tested}
+
+The following clustering algorithms were evaluated for grouping stores among orderbookers based on geographical proximity and workload balancing:
+
+\begin{itemize}
+    \item \textbf{KMeans Clustering (Kmeans.py)}
+    \begin{itemize}
+        \item Groups stores based on latitude and longitude using KMeans.
+        \item Minimizes the sum of squared distances to cluster centroids.
+        \item Post-clustering, stores are reallocated from overloaded to underloaded clusters to balance workload.
+    \end{itemize}
+    
+    \item \textbf{Hierarchical Clustering (Hierarchal.py)}
+    \begin{itemize}
+        \item Uses Ward's linkage to merge clusters based on minimum variance increase.
+        \item Clusters formed by cutting the dendrogram at desired number of orderbookers.
+        \item Produces compact and cohesive geographic clusters.
+    \end{itemize}
+    
+    \item \textbf{Gaussian Mixture Models (GMM.py)}
+    \begin{itemize}
+        \item Models clusters as Gaussian distributions with flexible shapes and orientations.
+        \item Assigns stores to clusters based on probability of belonging to a Gaussian component.
+        \item Covariance type set to "full" to allow non-spherical clusters.
+    \end{itemize}
+
+    \item \textbf{Hybrid Approach 1 (Graph-Based Clustering + KMeans)}
+    \begin{itemize}
+        \item First forms clusters using graph-based connectivity within a distance threshold.
+        \item Then refines cluster centers using KMeans to match desired number of clusters.
+        \item Ensures geographic cohesion and adjusts for cluster count.
+    \end{itemize}
+
+    \item \textbf{Hybrid Approach 2 (Graph-Based Clustering + KMeans + Geographical Constraints)}
+    \begin{itemize}
+        \item Builds on Hybrid 1 by detecting and reassigning outlier stores.
+        \item Outliers identified by distance from cluster centroid beyond a defined threshold.
+        \item Reassigned to nearest cluster to improve cohesion and balance.
+    \end{itemize}
+\end{itemize}
+
+Moreover, to ensure that optimal clusters were being made, cluster balancing was employed to redistribute 
+stores between clusters to ensure workloads—based on service effort and travel time—are roughly equal.
+ Overloaded clusters transfer nearby stores to underloaded ones, and this process repeats until workloads fall within a set tolerance or a maximum number of iterations is reached, promoting fair and efficient distribution.
+
+\subsection{Phase 1: Experiments Results}
+The silhouette score measures how well points are grouped in a clustering task. It checks if points are close to others in their own cluster, indicating a good score, or if they are far from points in other clusters (also good score). The score ranges from -1 to 1, where 1 means perfect clusters, 0 means overlap, and negative scores indicate that points might be in the wrong cluster.
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{Distributor ID} & \textbf{KMeans} & \textbf{Gaussian Mixture Models} & \textbf{Hierarchical} & \textbf{Hybrid Approach-1} & \textbf{Hybrid Approach-2} \\
+    \hline
+    1 & 0.3537 & 0.2835 & 0.3537 & 0.5044 & 0.5044 \\
+    6 & 0.1839 & 0.2130 & 0.1839 & 0.1839 & 0.1684 \\
+    7 & 0.2737 & 0.3376 & 0.3892 & 0.3980 & 0.4437 \\
+    \hline
+    \end{tabular}%
+    }
+    \caption{Silhouette Score Comparison for Different Clustering Algorithms}
+    \label{tab:silhouette_scores}
+    \end{table}
+
+From the results in Table~\ref{tab:silhouette_scores}, it can be observed that the Hybrid Approach-2 outperformed all other clustering algorithms, achieving the highest silhouette score of 0.5044 for Distributor 1 and 0.4437 for Distributor 7. This indicates that the clusters formed using this approach were more cohesive and well-separated compared to those formed by the other algorithms.
+Moreover, it finds a good balance between workload distribution and geographic proximity. For example, for distributor ID 7, there's a little variance in the clusters being formed however, it has the highest silhouette score as geographical proximity has been set as the priority.
+
+
 
 \subsection{Phase 2: Scheduling with Evolutionary Algorithm (EA)}
 Once clusters have been formed in Phase 1, the next critical step is to generate a feasible schedule that defines which shops should be visited on each day of the planning period (either a single day or a custom range, as selected by the user). The primary objective during scheduling is to balance the workload across both the available days and all assigned orderbookers. This ensures that no orderbooker is disproportionately burdened and that their daily tasks are distributed as evenly as possible.
@@ -47,7 +120,9 @@ It was found that the Ant Colony Optimization (ACO) route optimizer performed th
 While POS lead to explorative results, it would often get trapped in local optimas and not perform up to the optimal mark. Using Google OR-Tools and 
 Dynamic Programming showed that performance would degrade due to the very large datasets and complex constraints involved. Whereas ACO's 
 pheromone mechanisms lef to effective exploration of the solution space, allowing high-quality route optimization solutions in a reasonable time frame.
-\subsection{Experiments Overview}
+
+
+\subsection{Phase 2 and 3: Experiments Overview}
 A series of experiments were conducted across different distributors with varying numbers of stores and orderbookers. The following distributors were involved in the experiments:
 \begin{table}[h!]
 \centering
@@ -78,7 +153,7 @@ The results in Figure~\ref{fig:results_distance_all_dis} show that the best sche
 It can be observed that ACO is the top 4 best route optimizers, whereas the least optimal performance was showed EA nad PSO route optimizers, and MILP and simulated annealing schedulers.
 
 
-\subsection{Experiment Results}
+\subsection{Phase 2 and 3: Experiment Results}
 The experiments were conducted by combining different scheduling algorithms with different route optimization algorithms. The findings of each graph is summarized below.
 
 
