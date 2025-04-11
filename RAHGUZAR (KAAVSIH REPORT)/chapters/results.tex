@@ -16,21 +16,21 @@ To achieve this, clustering algorithms were tested on their own adn in a hybrid 
 The following clustering algorithms were evaluated for grouping stores among orderbookers based on geographical proximity and workload balancing:
 
 \begin{itemize}
-    \item \textbf{KMeans Clustering (Kmeans.py)}
+    \item \textbf{KMeans Clustering}
     \begin{itemize}
         \item Groups stores based on latitude and longitude using KMeans.
         \item Minimizes the sum of squared distances to cluster centroids.
         \item Post-clustering, stores are reallocated from overloaded to underloaded clusters to balance workload.
     \end{itemize}
     
-    \item \textbf{Hierarchical Clustering (Hierarchal.py)}
+    \item \textbf{Hierarchical Clustering}
     \begin{itemize}
         \item Uses Ward's linkage to merge clusters based on minimum variance increase.
         \item Clusters formed by cutting the dendrogram at desired number of orderbookers.
         \item Produces compact and cohesive geographic clusters.
     \end{itemize}
     
-    \item \textbf{Gaussian Mixture Models (GMM.py)}
+    \item \textbf{Gaussian Mixture Models}
     \begin{itemize}
         \item Models clusters as Gaussian distributions with flexible shapes and orientations.
         \item Assigns stores to clusters based on probability of belonging to a Gaussian component.
@@ -140,7 +140,7 @@ A series of experiments were conducted across different distributors with varyin
 \end{table}
 
 The purpose of the experiments was to determine the best combinations of scheduling and route optimization algorithms for each distributor. The experiments were designed to evaluate the performance of different algorithmic combinations in terms of distance and travel time minimization.
-This was done by analyzing the total distance minimized across all orderbookers (results show average of all distributors), and the stores serviced distribution per orderbooker for each day.
+This was done by analyzing the total distance and the total traveltime minimized across all orderbookers (results show average of all distributors), and the stores serviced distribution per orderbooker for each day.
 
 \begin{figure}[H]
     \centering
@@ -149,7 +149,14 @@ This was done by analyzing the total distance minimized across all orderbookers 
     \label{fig:results_distance_all_dis}
 \end{figure}
 
-The results in Figure~\ref{fig:results_distance_all_dis} show that the best scheduler-route optimizer combination was EA-ACO, minimizing the distance travelled to as less as 150 km as compared to almost 500 kms for the worst combination. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/results_time_all_dis}
+    \caption{Total time for all distributors compared over different combinations.}
+    \label{fig:results_time_all_dis}
+\end{figure}
+
+The results in Figure~\ref{fig:results_distance_all_dis} and Figure~\ref{fig:results_time_all_dis} show that the best scheduler-route optimizer combination was EA-ACO, minimizing the distance travelled and time taken to travel to as less as 150 km and 0.2 hours, as compared to almost 500 kms and 1 hour for the worst combination. 
 It can be observed that ACO is the top 4 best route optimizers, whereas the least optimal performance was showed EA nad PSO route optimizers, and MILP and simulated annealing schedulers.
 
 
@@ -160,30 +167,24 @@ The experiments were conducted by combining different scheduling algorithms with
 
 The best performing scheduler-route optimizer combinations for each distributor are as follows:
 
-\begin{table}[h!]
-\centering
-% \begin{tabular}{|c|c|c|c|c|}
-% \hline
-% \textbf{Distributor} & \textbf{Orderbooker Count} & \textbf{Stores} & \textbf{Best Distance Minimized Scheduler-Route Optimizer} & \textbf{Best Travel Time Minimized Scheduler-Route Optimizer} \\
-% \hline
-% Distributor 7 & 5 & 580 & EA-ACO & EA-ACO \\
-% Distributor 6 & 4 & 426 & EA-ACO & EA-ACO \\
-% Distributor 1 & 2 & 395 & EA-ACO & EA-ACO \\
-% Distributor 131 & 1 & 42 & ACO-EA & ACO-EA \\
-% \hline
-\begin{tabular}{|l|l|l|}
-    \hline
-    \textbf{Distributor} & \textbf{Best Distance Minimized Scheduler-Route Optimizer} & \textbf{Best Travel Time Minimized Scheduler-Route Optimizer} \\
-    \hline
-    Distributor 7 & EA-ACO & EA-ACO \\
-    Distributor 6 & EA-ACO & EA-ACO \\
-    Distributor 1 & EA-ACO & EA-ACO \\
-    Distributor 131 & ACO-EA & ACO-EA \\
-    \hline
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Distributor} & \textbf{Best Distance Minimized Scheduler-Route Optimizer} & \textbf{Best Travel Time Minimized Scheduler-Route Optimizer} \\
+        \hline
+        Distributor 7 & EA-ACO & EA-ACO \\
+        Distributor 6 & EA-ACO & EA-ACO \\
+        Distributor 1 & EA-ACO & EA-ACO \\
+        Distributor 131 & ACO-EA & ACO-EA \\
+        \hline
+    \end{tabular}%
+    }
+    \caption{Best performing Scheduler-Route Optimizer combinations by distributor}
+    \label{tab:best_schedulers}
+    \end{table}
     
-\end{tabular}
-\caption{Best Scheduler-Route Optimizer Combinations for Each Distributor}
-\end{table}
 
 \subsection{Conclusion}
 Based on the results from the experiments, the combination of Evolutionary Algorithm (EA) for scheduling and Ant Colony Optimization (ACO) for route optimization proved to be the best-performing solution, as evidenced by its consistent performance across all distributors, particularly in minimizing both distance and travel time.
