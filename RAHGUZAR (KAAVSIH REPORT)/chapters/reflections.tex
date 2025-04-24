@@ -1,5 +1,10 @@
 \section{Individual Reflections}
-% Personal learning experience, skills gained, and challenges overcome.
+\begin{itemize}
+    \item \textbf{Iqra Azfar}: Over the duration of the project, I was not only dedicated to doing extensive research and examining different facets of the issue, but also to developing essential technical and soft skills on an ongoing basis. The methodology included picking up new tools, studying intricate concepts, and implementing them to solve real-world problems. Collaboration with my team members was an enriching experience, where I actively participated in brainstorming meetings, solution creation, and decision-making. Working with others showed me the value of effective communication, flexibility, and respect towards one another, particularly in dealing with conflicts or differing opinions. These experiences helped me learn more about teamwork, problem-solving, and lifelong learning.
+    \item \textbf{Muhammad Youshay}:
+    \item \textbf{Rabia Shahab}:
+    \item \textbf{Nabila Zahra}
+\end{itemize}
 
 \section{Team Reflection}
 % Collaboration experience, role distribution, communication, and teamwork challenges.
@@ -23,3 +28,12 @@ Despite these challenges, the process evolved and improved over time. We became 
 % Were any proposed features removed/were any features added that were not proposed initially? 
 % What are the reasons for these choices? 
 % What are opportunities and challenges led to these design decisions? 
+In the initial stages of development and testing, the project encountered several challenges, particularly in the selection and evaluation of appropriate algorithms. One of the key difficulties arose from operational constraints provided by SalesFlo, including specific scheduling rules based on store types. For example, wholesale stores required a minimum gap of two days between consecutive visits. These requirements introduced additional complexity into the scheduling logic that was not fully anticipated during the planning phase.
+
+The original design included the use of the Google Maps API for generating distance matrices essential for route optimization. However, during implementation, we faced quota limitations and cost-related constraints that made it unsustainable for repeated large-scale use. As a result, we migrated to the Open Source Routing Machine (OSRM), which offered a cost-effective and reliable alternative. OSRM integrated smoothly with the backend system and allowed us to maintain routing functionality without dependency on third-party paid services.
+
+Additionally, the performance metrics defined at the start of the project were revised. Initially, we focused on general algorithm efficiency. As the project progressed, these metrics were refined to better reflect the quality of the generated Permanent Journey Plans (PJPs). New evaluation criteria included factors such as adherence to visit frequency requirements, practical feasibility of routes, and overall balance in daily assignments. These changes were informed by observations during pilot testing and helped ensure that system outputs aligned more closely with operational expectations.
+
+Another major change involved the dashboard technology. The initial plan was to use Power BI for data visualization. However, Power BI presented limitations in terms of scalability, customization, and backend integration. To address this, we transitioned to a custom-built solution using React for the frontend and Flask for the backend. This provided improved control over interface design and enabled real-time communication with the core system. During this process, an additional feature was also introduced: the ability to generate journey plans for extended planning windows while still meeting the original constraints—such as visit frequency, rest-day intervals, and fair workload distribution across order bookers.
+
+These design changes reflect an adaptive and iterative approach guided by technical constraints and practical deployment considerations. While some originally proposed features were modified or replaced, new capabilities were added to enhance system performance and usability. Overall, the project evolved in a way that better aligned with both user requirements and system scalability, resulting in a more robust and deployment-ready solution

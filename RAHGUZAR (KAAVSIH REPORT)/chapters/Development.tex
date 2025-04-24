@@ -22,12 +22,17 @@ The data design followed an entity-relationship model, with core tables represen
 During development, we encountered limitations with local hosting, especially as the dataset size and user load increased. This led to the decision to migrate the database to a cloud-hosted environment.
 
 \section{Migration to AWS RDS}
-To ensure scalability, reliability, and availability, the PostgreSQL database was migrated to Amazon Web Services Relational Database Service (AWS RDS). AWS RDS provided automatic backups, failover capabilities, and monitoring tools that were critical as the project moved into pilot testing and real-world deployment phases.
+To ensure scalability, reliability, and modular deployment, the Rahguzar system was migrated entirely to Amazon Web Services (AWS). Each core component—frontend, backend, database, and routing engine—was deployed on an independent cloud-managed or containerized service, enhancing system maintainability and operational separation.
 
-The migration involved exporting local database snapshots and restoring them to a provisioned PostgreSQL RDS instance. We reconfigured the Flask backend to connect to the cloud-hosted instance, updated environment variables for security, and used role-based permissions for managing database access. After thorough testing, this transition significantly improved system performance, particularly in handling concurrent API requests and large data queries during route generation and visualization.
+The frontend interface, developed using React, was hosted on an EC2 instance and served through Nginx. This configuration allowed for high-speed static content delivery and responsive user interaction, even under concurrent access. Using EC2 provided flexibility for auto-scaling based on usage, ensuring the interface remained consistent and efficient during pilot testing.
 
-AWS RDS also allowed for better integration with other cloud services, laying the foundation for scaling Rahguzar beyond the initial pilot regions.
+The backend, built with Flask, was deployed on a separate EC2 instance and served via Gunicorn to handle multiple simultaneous API requests. As the central orchestrator of the system, the backend coordinated data flow between the user interface, database, and routing engine. This separation of services ensured robust handling of real-time scheduling, clustering, and route generation logic.
 
+The PostgreSQL database was migrated to Amazon RDS. The process involved exporting local snapshots and restoring them into a managed RDS instance, followed by reconfiguring the Flask backend to use cloud-based credentials and environment-secured variables. IAM role-based access was used to manage security and ensure compliance. RDS offered operational benefits such as automated backups, failover recovery, and real-time monitoring through CloudWatch. Post-migration, the system demonstrated marked improvements in query performance and concurrency, particularly during route generation and analytics operations.
+
+For route optimization, the Open Source Routing Machine (OSRM) was containerized using Docker and exposed via Ngrok. This setup enabled secure, encrypted communication with the backend while keeping the container isolated from public networks. OSRM processed map-based routing queries with real-world accuracy, integrating seamlessly into the scheduling workflow.
+
+Collectively, this AWS deployment enabled the Rahguzar system to operate with cloud-native resilience, modular scalability, and rapid performance. It formed a reliable foundation for future expansions across cities and regions, ready to serve field teams and decision-makers in large-scale FMCG environments.
 \section{Integration with External Services}
 Mapping functionality was powered by the Google Maps API, which was integrated into both the backend and frontend layers. On the backend, it was used to compute distance matrices between store locations for the route optimization engine. On the frontend, it enabled real-time map rendering, location-based filtering, and drawing of optimized route paths.
 

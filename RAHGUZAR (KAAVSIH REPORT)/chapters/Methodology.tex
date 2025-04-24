@@ -22,88 +22,127 @@ Due to the NP-hard nature of the problem, exact optimization methods are impract
 
 \subsection{Clustering}
 
-The clustering phase assigns stores to order bookers through a hybrid clustering pipeline that balances geographic proximity with workload equity. It includes:
+The clustering phase assigns stores to order bookers through a hybrid clustering pipeline that balances geographic proximity with workload equity. This process allows the system to divide a large set of stores into manageable groups, which can then be assigned to specific order bookers in a logical and efficient manner.
 
-\begin{itemize}
-  \item \textbf{Graph-Based Clustering:} A minimum spanning tree (MST) is constructed from store locations to group nearby stores into initial clusters.
-  \item \textbf{K-Means Refinement:} Each graph-based cluster is refined by minimizing intra-cluster variance. The centroid $C_i$ of each cluster is updated as:
-  \[
-  C_i = \frac{1}{N_i} \sum_{x \in S_i} x
-  \]
-  \item \textbf{Outlier Reassignment:} Stores that lie significantly far from their assigned cluster centroid are identified using:
-  \[
-  D_{s,c} > \mu + \sigma \cdot k
-  \]
-  and reassigned to the nearest neighboring cluster.
-  \item \textbf{Workload Balancing:} Store workloads are redistributed by minimizing the squared workload error:
-  \[
-  SSE = \sum_{c} (W_c - \bar{W})^2
-  \]
-\end{itemize}
+\textbf{Graph-Based Clustering.} A Minimum Spanning Tree (MST) is constructed using store location data. The MST connects all stores with the minimal possible total edge weight, ensuring that geographically close stores are grouped together with minimal travel distance. This forms the initial clusters that are further refined in the next steps.
+
+\textbf{K-Means Refinement.} Each graph-based cluster is refined by minimizing the internal variance within the cluster using the K-means algorithm. The centroid $C_i$ of each cluster is recalculated using:
+
+\[
+C_i = \frac{1}{N_i} \sum_{x \in S_i} x
+\]
+
+Where: \\
+$C_i$: The new centroid of cluster $i$ \\
+$N_i$: The number of stores in cluster $i$ \\
+$x \in S_i$: The coordinates of each store $x$ in cluster $S_i$
+
+\textbf{Outlier Reassignment.} After initial refinement, stores that lie significantly far from their assigned cluster centroid are identified using:
+
+\[
+D_{s,c} > \mu + \sigma \cdot k
+\]
+
+Where: \\
+$D_{s,c}$: Distance of store $s$ from the centroid of its assigned cluster $c$ \\
+$\mu$: Mean distance of all stores in the cluster from the centroid \\
+$\sigma$: Standard deviation of the distances \\
+$k$: Scaling factor used for thresholding
+
+Such outliers are then reassigned to the nearest neighboring cluster. This improves overall cluster consistency and prevents inefficiencies in route planning due to geographical anomalies.
+
+\textbf{Workload Balancing.} To ensure equitable distribution of stores across order bookers, workloads are balanced by minimizing the squared workload error:
+
+\[
+SSE = \sum_{c}(W_c - \bar{W})^2
+\]
+
+Where: \\
+$W_c$: Total workload of cluster $c$ \\
+$\bar{W}$: Average workload across all clusters
+
+This multi-step clustering strategy ensures both spatial efficiency and fair workload distribution across field staff. The use of MST helps with initial proximity grouping, K-means ensures tight clusters, outlier reassignment handles anomalies, and workload balancing ensures equity. Together, they set a strong foundation for downstream scheduling and routing.
 
 \subsection{Scheduling}
 
-After clustering, each order booker's list of stores is scheduled across the working week using a custom \textit{Evolutionary Algorithm (EA)}. The EA process includes:
+After clustering, each order booker’s list of stores is scheduled across the working week using a custom Evolutionary Algorithm (EA). This approach is designed to distribute store visits over time in a way that balances efficiency with business constraints.
 
+\textbf{Population Initialization.} Initial schedules are generated randomly and based on geographic heuristics. This combination provides enough diversity for the EA to explore a wide range of configurations and forms the basis for iterative improvements.
+
+\textbf{Fitness Evaluation.} Each schedule is evaluated using the following fitness function:
+
+\[
+F = T_{\text{total}} + P_{\text{mismatch}} + P_{\text{imbalance}} + P_{\text{geo}}
+\]
+
+\textbf{Where:}
 \begin{itemize}
-  \item \textbf{Population Initialization:} Initial schedules are generated randomly and based on geographic heuristics.
-  \item \textbf{Fitness Evaluation:} Each schedule is evaluated using:
-  \[
-  F = T_{\text{total}} + P_{\text{mismatch}} + P_{\text{imbalance}} + P_{\text{geo}}
-  \]
-  \item \textbf{Constraints:} Daily workload must satisfy:
-  \[
-  T_{\text{day}} = \sum_{i=1}^{n} T_{\text{travel},i} + \sum_{i=1}^{n} T_{\text{service},i} \leq 480
-  \]
-  \item \textbf{Crossover and Mutation:} Tournament selection, crossover, and mutation operations are used to refine schedules across generations.
+  \item $T_{\text{total}}$: Total time taken for travel and service across all days
+  \item $P_{\text{mismatch}}$: Penalty for not meeting store visit frequency
+  \item $P_{\text{imbalance}}$: Penalty for workload imbalance across order bookers
+  \item $P_{\text{geo}}$: Penalty for geographical inefficiencies in route shape
 \end{itemize}
+This function balances multiple scheduling objectives. A lower score indicates a more optimal schedule under all constraints.
+
+\textbf{Constraints.} Daily work limits are enforced using:
+
+\[
+T_{\text{day}} = \sum_{i=1}^{n} T_{\text{travel},i} + \sum_{i=1}^{n} T_{\text{service},i} \leq 480
+\]
+
+\textbf{Where:}
+\begin{itemize}
+  \item $T_{\text{travel},i}$: Travel time to store $i$
+  \item $T_{\text{service},i}$: Service time at store $i$
+  \item $n$: Number of stores in the daily route
+\end{itemize}
+This ensures feasibility within an 8-hour workday and aligns schedules with operational constraints.
+
+Crossover and mutation operations are applied to refine the population of schedules over successive generations. Tournament selection is used to identify high-performing candidates, from which crossover generates new schedules by combining elements of the best solutions. Mutation then introduces small random changes to maintain diversity in the population and prevent premature convergence to local optima. Together, these mechanisms drive the evolutionary algorithm toward more optimal and robust scheduling outcomes.
 
 \subsection{Route Optimization}
 
-For each day’s assigned store list, visits are sequenced using \textit{Ant Colony Optimization (ACO)}. The probability of visiting store $j$ from $i$ is:
+For each day’s assigned store list, the visit sequence is optimized using a two-step approach: a heuristic-based Nearest Neighbor (NN) method followed by optimization with the OR-Tools Traveling Salesman Problem (TSP) Solver.
+
+\textbf{Step 1: Nearest Neighbor (NN).} A route is constructed starting from the depot by repeatedly selecting the nearest unvisited store. This provides a quick, feasible route with low computational cost, suitable for initialization.
+
+\textbf{Step 2: OR-Tools TSP Solver.} The initial sequence is refined by minimizing the tour length:
 
 \[
-P_{ij} = \frac{(\tau_{ij})^\alpha (\eta_{ij})^\beta}{\sum_{k \in N_i} (\tau_{ik})^\alpha (\eta_{ik})^\beta}
+\min \sum_{i=1}^{r-1} D_{i,i+1} + D_{r,1}
 \]
 
-Pheromone trails are updated as:
-\[
-\tau_{ij} = (1 - \rho) \cdot \tau_{ij} + \sum_{\text{ants}} \Delta \tau_{ij} \quad \text{where} \quad \Delta \tau_{ij} = \frac{Q}{L_k}
-\]
-
-
-\noindent Parameters used:
+\textbf{Where:}
 \begin{itemize}
-  \item $\alpha = 1$, $\beta = 3$ (pheromone and distance influence)
-  \item $\rho = 0.1$ (evaporation rate), $Q = 1$ (pheromone deposit factor)
-  \item $L_k$: route length of ant $k$
+  \item $r$: Total number of stores in the daily route
+  \item $D_{i,i+1}$: Distance between consecutive stores $i$ and $i+1$
+  \item $D_{r,1}$: Distance from the final store back to the depot
 \end{itemize}
 
-Distances and travel times are computed using the OSRM backend for real-world accuracy.
-
+Thus, the routes are constrained to a maximum daily duration of 480 minutes. This two-step method combines the speed of Nearest Neighbor with the precision of OR-Tools, ensuring route quality, feasibility, and scalability for FMCG operations.
 \section{Data Preprocessing Strategy}
 
-The input datasets were provided by SalesFlo in Excel format. The preprocessing pipeline involved:
+% The input datasets were provided by SalesFlo in Excel format. The preprocessing pipeline involved:
 
-\begin{itemize}
-  \item Parsing and cleaning using Python
-  \item Merging datasets by unique store identifiers
-  \item Migrating structured data into a PostgreSQL database
-  \item Filtering stores by operational zones for the pilot phase
-\end{itemize}
+% \begin{itemize}
+%   \item Parsing and cleaning using Python
+%   \item Merging datasets by unique store identifiers
+%   \item Migrating structured data into a PostgreSQL database
+%   \item Filtering stores by operational zones for the pilot phase
+% \end{itemize}
 
-This ensured consistency and readiness for integration into the optimization pipeline.
-
+% This ensured consistency and readiness for integration into the optimization pipeline.
+The input datasets, provided by SalesFlo in Excel format, were preprocessed using a structured pipeline to ensure data quality and consistency. Parsing and cleaning were performed using Python, followed by merging multiple files based on unique store identifiers. The cleaned and integrated data was then migrated into a PostgreSQL database to enable efficient querying and relational operations. For the pilot implementation, stores were filtered by predefined operational zones to restrict testing to relevant geographic clusters. This preprocessing ensured that the data was normalized, reliable, and ready for direct integration into the clustering, scheduling, and routing optimization pipeline.
 \section{Assumptions}
+To simplify computation and focus on core scheduling and routing challenges, several assumptions were applied throughout the system design. Travel times were treated as static averages, without modeling real-time traffic conditions. All routes were assumed to start and end at a fixed distributor location. Store service durations were considered known and constant across the planning horizon. Additionally, planning was conducted on a weekly basis, excluding Sundays, to align with standard operational cycles. These assumptions allowed the algorithmic components to remain tractable while preserving alignment with real-world FMCG workflows.
+% To maintain focus and computational tractability, the following assumptions were made:
 
-To maintain focus and computational tractability, the following assumptions were made:
-
-\begin{itemize}
-  \item Static average travel times are used; live traffic is not modeled
-  \item Each route begins and ends at a fixed distributor
-  \item Store service durations are known and fixed
-  \item Planning is performed on a weekly horizon excluding Sundays
-\end{itemize}
+% \begin{itemize}
+%   \item Static average travel times are used; live traffic is not modeled
+%   \item Each route begins and ends at a fixed distributor
+%   \item Store service durations are known and fixed
+%   \item Planning is performed on a weekly horizon excluding Sundays
+% \end{itemize}
 
 \section{Algorithmic Complexity}
 
