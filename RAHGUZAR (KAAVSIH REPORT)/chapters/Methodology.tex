@@ -156,14 +156,15 @@ Rahguzar’s modular pipeline breaks the PJP problem into three heuristically op
   O(P \cdot n \cdot G_{EA})
   \]
 
-  \item \textbf{Routing (ACO):} For each daily route of $r$ stores (where $r$ is typically 10–25), Ant Colony Optimization runs $m$ ants (usually 6–7) for $G_{ACO}$ generations (15–20 iterations). The per-route complexity is:
-  \[
-  O(m \cdot r^2 \cdot G_{ACO})
-  \]
-  Over all $n$ stores (divided across clusters and days), the total routing complexity is approximated as:
-  \[
-  O(n \cdot m \cdot r \cdot G_{ACO})
-  \]
+  \item \textbf{Routing (Nearest Neighbor + OR-Tools):} For each day, an initial path is constructed using the Nearest Neighbor (NN) heuristic. This is followed by route refinement using Google's OR-Tools TSP solver, which minimizes the total travel distance:
+\[
+\min \sum_{i=1}^{r-1} D_{i,i+1} + D_{r,1}
+\]
+For $r$ stores per route across $d$ daily routes, the empirical time complexity is approximately:
+\[
+O(d \cdot r^2)
+\]
+This two-step routing ensures scalable and high-quality solutions for daily planning under operational constraints.
 \end{itemize}
 
 \textbf{Total System Complexity:}
@@ -171,7 +172,8 @@ Rahguzar’s modular pipeline breaks the PJP problem into three heuristically op
 Combining the three stages, the total time complexity of Rahguzar’s algorithm is:
 
 \[
-O(n^2 + nk + P \cdot n \cdot G_{EA} + n \cdot m \cdot r \cdot G_{ACO})
+O(n^2 + nk + P \cdot n \cdot G_{EA} + d \cdot r^2)
 \]
+  
 
 This formulation reflects both theoretical bounds and empirical performance. In practice, early stopping, parallelism, and per-cluster decomposition significantly reduce runtime. Rahguzar consistently generated optimized plans for hundreds of stores in under 5 minutes on a standard multi-core machine.
