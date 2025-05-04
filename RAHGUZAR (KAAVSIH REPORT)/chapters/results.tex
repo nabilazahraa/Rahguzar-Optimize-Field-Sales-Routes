@@ -1,6 +1,10 @@
+This chapter aims to present the results of experiments conducted across Rahguzar’s clustering, scheduling, and routing phases to evaluate their impact on route optimization, workload balancing, and service coverage. Each algorithm was tested individually and as part of the integrated pipeline. Additionally, Rahguzar’s performance was benchmarked against Salesflo using real distributor datasets, comparing outcomes in terms of total travel distance, execution time, and overall planning efficiency.
+
 \section{Algorithmic Phases and Experiment Results}
 
 This section presents the methodology and results from a series of experiments conducted to determine the optimal combinations of algorithms for different phases of the optimization process.
+
+
 
 
 \subsection{Phase 1: Hybrid Clustering Approach}
@@ -14,41 +18,27 @@ To achieve this, clustering algorithms were tested on their own adn in a hybrid 
 The following clustering algorithms were evaluated for grouping stores among orderbookers based on geographical proximity and workload balancing:
 
 \begin{itemize}
-    \item \textbf{KMeans Clustering}
-    \begin{itemize}
-        \item Groups stores based on latitude and longitude using KMeans.
-        \item Minimizes the sum of squared distances to cluster centroids.
-        \item Post-clustering, stores are reallocated from overloaded to underloaded clusters to balance workload.
-    \end{itemize}
+    \item \textbf{KMeans Clustering}  
     
-    \item \textbf{Hierarchical Clustering}
-    \begin{itemize}
-        \item Uses Ward's linkage to merge clusters based on minimum variance increase.
-        \item Clusters formed by cutting the dendrogram at desired number of orderbookers.
-        \item Produces compact and cohesive geographic clusters.
-    \end{itemize}
+    Groups stores based on latitude and longitude using the KMeans algorithm. It minimizes the sum of squared distances to cluster centroids. After initial clustering, stores are reallocated from overloaded to underloaded clusters to ensure balanced workload distribution.
+
+    \item \textbf{Hierarchical Clustering}  
     
-    \item \textbf{Gaussian Mixture Models}
-    \begin{itemize}
-        \item Models clusters as Gaussian distributions with flexible shapes and orientations.
-        \item Assigns stores to clusters based on probability of belonging to a Gaussian component.
-        \item Covariance type set to "full" to allow non-spherical clusters.
-    \end{itemize}
+    This method uses Ward’s linkage to merge clusters based on minimum variance increase. Clusters are formed by cutting the dendrogram at the level corresponding to the number of orderbookers, resulting in compact and cohesive geographic groupings.
 
-    \item \textbf{Hybrid Approach 1 (Graph-Based Clustering + KMeans)}
-    \begin{itemize}
-        \item First forms clusters using graph-based connectivity within a distance threshold.%
-        \item Then refines cluster centers using KMeans to match desired number of clusters.
-        \item Ensures geographic cohesion and adjusts for cluster count.
-    \end{itemize}
+    \item \textbf{Gaussian Mixture Models}  
+    
+    Clusters are modeled as Gaussian distributions with flexible shapes and orientations. Stores are assigned to clusters based on their probability of belonging to a particular Gaussian component. The model uses “full” covariance to allow for non-spherical clusters.
 
-    \item \textbf{Hybrid Approach 2 (Graph-Based Clustering + KMeans + Geographical Constraints)}
-    \begin{itemize}
-        \item Builds on Hybrid 1 by detecting and reassigning outlier stores.
-        \item Outliers identified by distance from cluster centroid beyond a defined threshold.
-        \item Reassigned to nearest cluster to improve cohesion and balance.
-    \end{itemize}
+    \item \textbf{Hybrid Approach 1 (Graph-Based Clustering + KMeans)}  
+    
+    This approach begins by forming clusters based on graph connectivity within a specific distance threshold. These clusters are then refined using KMeans to match the desired number of clusters, ensuring both geographic cohesion and count alignment.
+
+    \item \textbf{Hybrid Approach 2 (Graph-Based Clustering + KMeans + Geographical Constraints)}  
+    
+    This builds on Hybrid 1 by identifying and reassigning outlier stores. Outliers are detected based on their distance from the cluster centroid exceeding a defined threshold. These stores are then reassigned to the nearest appropriate cluster to enhance geographic cohesion and workload balance.
 \end{itemize}
+
 
 Moreover, to ensure that optimal clusters were being made, cluster balancing was employed to redistribute 
 stores between clusters to ensure workloads—based on service effort and travel time—are roughly equal.
@@ -100,11 +90,10 @@ Algorithms like ACO showed that the in serach for the optimal schedule, it can o
 generating a schedule can be computationally expensive and time consuming. On the other hand, EA showed optmial results with genetic diversity maintained that
 avoids premature convergence, hence EA is the best choice for scheduling.
 
-\subsection{Phase 3: Route Optimization with Ant Colony Optimization (ACO)}
-After a schedule has been created, the next step is to optimize the routes for each orderbooker. This involves determining the most efficient path for each orderbooker to follow, ensuring that they can visit all assigned stores in the shortest possible time while adhering to any constraints (e.g., time windows, vehicle capacity). The goal is to minimize travel distance and time while maximizing efficiency.
-This phase is crucial for ensuring that the orderbookers can complete their routes within the allocated time and resources, ultimately leading to improved service levels and reduced operational costs.
-Moreover, it helps determine the order of visiting the stores and the best route to take, considering factors such as road networks and other logistical constraints.
-For route optimization, several algorithms were tested to identify the most effective one. The route optimization algorithms evaluated were:
+\subsection{Phase 3: Route Optimization}
+After a schedule has been created, the next step is to optimize the routes for each orderbooker. This involves determining the most efficient path for each orderbooker to follow, ensuring that they can visit all assigned stores in the shortest possible time while adhering to any constraints (e.g., time windows, vehicle capacity). The goal is to minimize travel distance and time while maximizing efficiency. This phase is crucial for ensuring that the orderbookers can complete their routes within the allocated time and resources, ultimately leading to improved service levels and reduced operational costs.
+
+Moreover, it helps determine the order of visiting the stores and the best route to take, considering factors such as road networks and other logistical constraints. For route optimization, several algorithms were tested to identify the most effective one. The route optimization algorithms evaluated were:
 
 \begin{itemize}
     \item Particle Swarm Optimization (PSO)
@@ -114,11 +103,9 @@ For route optimization, several algorithms were tested to identify the most effe
     \item Dynamic Programming
 \end{itemize}
 
-Among the tested route optimization algorithms, Ant Colony Optimization showed strong performance in several cases, particularly in %
-balancing exploration and solution quality. While POS lead to explorative results, it would often get trapped in local optimas and not 
-perform up to the optimal mark. Using Google OR-Tools and Dynamic Programming showed that performance would degrade due to the very 
-large datasets and complex constraints involved. ACO's pheromone-based search mechanisms contributed to effective exploration of the 
-solution space and often resulted in high-quality solutions within reasonable computation time.
+Among the tested route optimization algorithms, Google OR-Tools showed the most consistent and optimal performance in minimizing total travel distance and time. While ACO and PSO showed promise in smaller test cases, they frequently got trapped in local optima or exhibited longer computation times in large-scale datasets. OR-Tools, by contrast, delivered high-quality solutions across varying distributor profiles and constraints, making it the most robust choice for route optimization within Rahguzar's pipeline.
+
+
 
 
 \subsection{Phase 2 and 3: Experiments Overview}
@@ -155,8 +142,8 @@ This was done by analyzing the total distance and the total traveltime minimized
     \label{fig:results_time_all_dis}
 \end{figure}
 
-The results in Figure~\ref{fig:results_distance_all_dis} and Figure~\ref{fig:results_time_all_dis} show that one of the top-performing scheduler-route optimizer combinations was EA-ACO, which demonstrated strong results in minimizing both travel distance and time, by traveling 
-to as less as 150 km in 0.2 hours, as compared to almost 500 kms and 1 hour for the worst combination. ACO consistently ranked among the top-performing route optimizers across multiple test cases, whereas the least optimal performance was showed EA nad PSO route optimizers, 
+The results in Figure~\ref{fig:results_distance_all_dis} and Figure~\ref{fig:results_time_all_dis} show that one of the top-performing scheduler-route optimizer combinations was EA-OR Tools, which demonstrated strong results in minimizing both travel distance and time, by traveling 
+to as less as 150 km in 0.2 hours, as compared to almost 500 kms and 1 hour for the worst combination. OR Tools consistently ranked among the top-performing route optimizers across multiple test cases, whereas the least optimal performance was showed EA nad PSO route optimizers, 
 and MILP and simulated annealing schedulers.
 
 
@@ -169,227 +156,23 @@ The best performing scheduler-route optimizer combinations for each distributor 
 
 \begin{table}[H]
     \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|l|l|l|}
-        \hline
-        \textbf{Distributor} & \textbf{Best Distance Minimized Scheduler-Route Optimizer} & \textbf{Best Travel Time Minimized Scheduler-Route Optimizer} \\
-        \hline
-        Distributor 7 & EA-ACO & EA-ACO \\
-        Distributor 6 & EA-ACO & EA-ACO \\
-        Distributor 1 & EA-ACO & EA-ACO \\
-        Distributor 131 & ACO-EA & ACO-EA \\
-        \hline
-    \end{tabular}%
-    }
-    \caption{Best performing Scheduler-Route Optimizer combinations by distributor}
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Best Performing Scheduler-Route Optimizer Combinations by Distributor}
+    \begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{5cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{5cm}|}
+    \hline
+    \textbf{Distributor} & \textbf{Best Distance Minimized Scheduler-Route Optimizer} & \textbf{Best Travel Time Minimized Scheduler-Route Optimizer} \\
+    \hline
+    Distributor 7 & EA-OR-Tools & EA-OR-Tools \\
+    Distributor 6 & EA-OR-Tools & EA-OR-Tools \\
+    Distributor 1 & EA-OR-Tools & EA-OR-Tools \\
+    Distributor 131 & EA-ACO & EA-ACO \\
+    \hline
+    \end{tabular}
     \label{tab:best_schedulers}
-    \end{table}
-    
-
-\subsection{Conclusion}
-Based on the results from the experiments, The Evolutionary Algorithm (EA) consistently performed well in the scheduling phase, while ACO showed promising results for route optimization in several test scenarios. However, optimal combinations varied by distributor and data characteristics, as evidenced.
-
-ACO demonstrated competitive performance among the route optimization algorithms, particularly under complex constraints and larger datasets. For Distributor 131, the ACO–EA combination yielded the most favorable results. This underscores the importance of evaluating scheduling and route optimization algorithms jointly, as their effectiveness can vary based on specific operational contexts.
-
-
-\section{Results Comparision: Salesflo PJP vs Rahguzar PJP}
-
-\section{Algorithmic Phases and Experiment Results}
-
-This section presents the methodology and results from a series of experiments conducted to determine the optimal combinations of algorithms for different phases of the optimization process.
-
-
-
-
-\subsection{Phase 1: Hybrid Clustering Approach}
-% Phase 1 content to be added later.
-The first aim of the algorithm is to divide the list of stores to be serviced into a number of clusters which is determined by the number of orderbookers.
-The objective is to group close stores in the same cluster, so that the orderbookers can service them as the scheduler will decide.
-To achieve this, clustering algorithms were tested on their own adn in a hybrid approach.
-
-\subsubsection{Clustering Algorithms Tested}
-
-The following clustering algorithms were evaluated for grouping stores among orderbookers based on geographical proximity and workload balancing:
-
-\begin{itemize}
-    \item \textbf{KMeans Clustering}
-    \begin{itemize}
-        \item Groups stores based on latitude and longitude using KMeans.
-        \item Minimizes the sum of squared distances to cluster centroids.
-        \item Post-clustering, stores are reallocated from overloaded to underloaded clusters to balance workload.
-    \end{itemize}
-    
-    \item \textbf{Hierarchical Clustering}
-    \begin{itemize}
-        \item Uses Ward's linkage to merge clusters based on minimum variance increase.
-        \item Clusters formed by cutting the dendrogram at desired number of orderbookers.
-        \item Produces compact and cohesive geographic clusters.
-    \end{itemize}
-    
-    \item \textbf{Gaussian Mixture Models}
-    \begin{itemize}
-        \item Models clusters as Gaussian distributions with flexible shapes and orientations.
-        \item Assigns stores to clusters based on probability of belonging to a Gaussian component.
-        \item Covariance type set to "full" to allow non-spherical clusters.
-    \end{itemize}
-
-    \item \textbf{Hybrid Approach 1 (Graph-Based Clustering + KMeans)}
-    \begin{itemize}
-        \item First forms clusters using graph-based connectivity within a distance threshold.%
-        \item Then refines cluster centers using KMeans to match desired number of clusters.
-        \item Ensures geographic cohesion and adjusts for cluster count.
-    \end{itemize}
-
-    \item \textbf{Hybrid Approach 2 (Graph-Based Clustering + KMeans + Geographical Constraints)}
-    \begin{itemize}
-        \item Builds on Hybrid 1 by detecting and reassigning outlier stores.
-        \item Outliers identified by distance from cluster centroid beyond a defined threshold.
-        \item Reassigned to nearest cluster to improve cohesion and balance.
-    \end{itemize}
-\end{itemize}
-
-Moreover, to ensure that optimal clusters were being made, cluster balancing was employed to redistribute 
-stores between clusters to ensure workloads—based on service effort and travel time—are roughly equal.
- Overloaded clusters transfer nearby stores to underloaded ones, and this process repeats until workloads fall within a set tolerance or a maximum number of iterations is reached, promoting fair and efficient distribution.
-
-\subsection{Phase 1: Experiments Results}
-The silhouette score measures how well points are grouped in a clustering task. It checks if points are close to others in their own cluster, indicating a good score, or if they are far from points in other clusters (also good score). The score ranges from -1 to 1, where 1 means perfect clusters, 0 means overlap, and negative scores indicate that points might be in the wrong cluster.
-
-\begin{table}[H]
-    \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|c|c|c|c|c|c|}
-    \hline
-    \textbf{Distributor ID} & \textbf{KMeans} & \textbf{Gaussian Mixture Models} & \textbf{Hierarchical} & \textbf{Hybrid Approach-1} & \textbf{Hybrid Approach-2} \\
-    \hline
-    1 & 0.3537 & 0.2835 & 0.3537 & 0.5044 & 0.5044 \\
-    6 & 0.1839 & 0.2130 & 0.1839 & 0.1839 & 0.1684 \\
-    7 & 0.2737 & 0.3376 & 0.3892 & 0.3980 & 0.4437 \\
-    \hline
-    \end{tabular}%
-    }
-    \caption{Silhouette Score Comparison for Different Clustering Algorithms}
-    \label{tab:silhouette_scores}
-    \end{table}
-
-From the results in Table~\ref{tab:silhouette_scores}, it can be observed that the Hybrid Approach-2 outperformed all other clustering algorithms, achieving the highest silhouette score of 0.5044 for Distributor 1 and 0.4437 for Distributor 7. This indicates that the clusters formed using this approach were more cohesive and well-separated compared to those formed by the other algorithms.
-Moreover, it finds a good balance between workload distribution and geographic proximity. For example, for distributor ID 7, there's a little variance in the clusters being formed however, it has the highest silhouette score as geographical proximity has been set as the priority.
-
-
-
-\subsection{Phase 2: Scheduling with Evolutionary Algorithm (EA)} %
-Once clusters have been formed in Phase 1, the next critical step is to generate a feasible schedule that defines which shops should be visited on each day of the planning period (either a single day or a custom range, as selected by the user). The primary objective during scheduling is to balance the workload across both the available days and all assigned orderbookers. This ensures that no orderbooker is disproportionately burdened and that their daily tasks are distributed as evenly as possible.
-
-To identify the most effective scheduling strategy, a series of experiments were conducted using various algorithms. Each algorithm was evaluated based on its ability to generate balanced, constraint-compliant schedules. At the core of this evaluation process is the fitness function.
-
-The fitness function plays a vital role in determining how practical and efficient a schedule is. It computes a cost value for each candidate schedule—lower values indicate better solutions. Hard constraints are applied first: for example, if the total route time on any day exceeds a predefined daily limit (e.g., 480 minutes), a substantial penalty is applied to immediately discourage infeasible schedules. It also checks for visit mismatches—stores not visited the required number of times—penalizing any deviations.
-
-Additionally, soft constraints are incorporated to further refine the schedule. These include a day-balancing penalty when daily route times fall outside the ideal range (e.g., 360–420 minutes), and a geographical penalty when neighboring stores requiring only one visit are assigned to different days. These constraints collectively guide the algorithm toward generating schedules that are not only valid but also optimized for balance, practicality, and real-world efficiency. The following scheduling algorithms were used:
-
-\begin{itemize}
-    \item Simulated Annealing
-    \item Ant Colony Optimization (ACO)
-    \item Mixed Integer Linear Programming (MILP)
-    \item Evolutionary Algorithm (EA)
-\end{itemize}
-
-Through a series of experiments, the best combination for the scheduling phase was determined, which was Evolutionary Algorithm (EA) for scheduling.
-Algorithms like ACO showed that the in serach for the optimal schedule, it can often get trapped in a local optima. For MILP and simulated annealing, 
-generating a schedule can be computationally expensive and time consuming. On the other hand, EA showed optmial results with genetic diversity maintained that
-avoids premature convergence, hence EA is the best choice for scheduling.
-
-\subsection{Phase 3: Route Optimization with Ant Colony Optimization (ACO)}
-After a schedule has been created, the next step is to optimize the routes for each orderbooker. This involves determining the most efficient path for each orderbooker to follow, ensuring that they can visit all assigned stores in the shortest possible time while adhering to any constraints (e.g., time windows, vehicle capacity). The goal is to minimize travel distance and time while maximizing efficiency.
-This phase is crucial for ensuring that the orderbookers can complete their routes within the allocated time and resources, ultimately leading to improved service levels and reduced operational costs.
-Moreover, it helps determine the order of visiting the stores and the best route to take, considering factors such as road networks and other logistical constraints.
-For route optimization, several algorithms were tested to identify the most effective one. The route optimization algorithms evaluated were:
-
-\begin{itemize}
-    \item Particle Swarm Optimization (PSO)
-    \item Ant Colony Optimization (ACO)
-    \item Google Optimization Tools (OR-Tools)
-    \item Evolutionary Algorithm (EA)
-    \item Dynamic Programming
-\end{itemize}
-
-Among the tested route optimization algorithms, Ant Colony Optimization showed strong performance in several cases, particularly in %
-balancing exploration and solution quality. While POS lead to explorative results, it would often get trapped in local optimas and not 
-perform up to the optimal mark. Using Google OR-Tools and Dynamic Programming showed that performance would degrade due to the very 
-large datasets and complex constraints involved. ACO's pheromone-based search mechanisms contributed to effective exploration of the 
-solution space and often resulted in high-quality solutions within reasonable computation time.
-
-
-\subsection{Phase 2 and 3: Experiments Overview}
-A series of experiments were conducted across different distributors with varying numbers of stores and orderbookers. The following distributors were involved in the experiments:
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Distributor ID} & \textbf{Number of Stores} & \textbf{Number of Orderbookers} \\
-\hline
-1 & 395 & 2 \\
-6 & 426 & 4 \\
-7 & 580 & 5 \\
-131 & 42 & 1 \\
-\hline
-\end{tabular}
-\caption{Distributors and their Assigned Stores and Orderbookers}
 \end{table}
 
-The purpose of the experiments was to determine the best combinations of scheduling and route optimization algorithms for each distributor. The experiments were designed to evaluate the performance of different algorithmic combinations in terms of distance and travel time minimization.
-This was done by analyzing the total distance and the total traveltime minimized across all orderbookers (results show average of all distributors), and the stores serviced distribution per orderbooker for each day.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth]{images/results_distance_all_dis}
-    \caption{Total distance for all distributors compared over different combinations.}
-    \label{fig:results_distance_all_dis}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth]{images/results_time_all_dis}
-    \caption{Total time for all distributors compared over different combinations.}
-    \label{fig:results_time_all_dis}
-\end{figure}
-
-The results in Figure~\ref{fig:results_distance_all_dis} and Figure~\ref{fig:results_time_all_dis} show that one of the top-performing scheduler-route optimizer combinations was EA-ACO, which demonstrated strong results in minimizing both travel distance and time, by traveling 
-to as less as 150 km in 0.2 hours, as compared to almost 500 kms and 1 hour for the worst combination. ACO consistently ranked among the top-performing route optimizers across multiple test cases, whereas the least optimal performance was showed EA nad PSO route optimizers, 
-and MILP and simulated annealing schedulers.
-
-
-\subsection{Phase 2 and 3: Experiment Results}
-The experiments were conducted by combining different scheduling algorithms with different route optimization algorithms. The findings of each graph is summarized below.
-
-
-
-The best performing scheduler-route optimizer combinations for each distributor are as follows:
-
-\begin{table}[H]
-    \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|l|l|l|}
-        \hline
-        \textbf{Distributor} & \textbf{Best Distance Minimized Scheduler-Route Optimizer} & \textbf{Best Travel Time Minimized Scheduler-Route Optimizer} \\
-        \hline
-        Distributor 7 & EA-ACO & EA-ACO \\
-        Distributor 6 & EA-ACO & EA-ACO \\
-        Distributor 1 & EA-ACO & EA-ACO \\
-        Distributor 131 & ACO-EA & ACO-EA \\
-        \hline
-    \end{tabular}%
-    }
-    \caption{Best performing Scheduler-Route Optimizer combinations by distributor}
-    \label{tab:best_schedulers}
-    \end{table}
     
-
-\subsection{Conclusion}
-Based on the results from the experiments, The Evolutionary Algorithm (EA) consistently performed well in the scheduling phase, while ACO showed promising results for route optimization in several test scenarios. However, optimal combinations varied by distributor and data characteristics, as evidenced.
-
-ACO demonstrated competitive performance among the route optimization algorithms, particularly under complex constraints and larger datasets. For Distributor 131, the ACO–EA combination yielded the most favorable results. This underscores the importance of evaluating scheduling and route optimization algorithms jointly, as their effectiveness can vary based on specific operational contexts.
-
-
 \section{Results Comparison: Salesflo PJP vs Rahguzar PJP}
 
 This section presents a comparative analysis of Rahguzar's performance against Salesflo's pre-existing PJP plans across three real-world test distributors. Each distributor varied in terms of store count, OB allocation, and planning duration, allowing for a diverse evaluation of route efficiency, time optimization, and system scalability. Metrics analyzed include total distance traveled and total route time under the same operational constraints for both systems.
@@ -492,3 +275,11 @@ To illustrate overall performance across all scenarios:
 \end{table}
 
 Across all test cases, Rahguzar reduced the cumulative travel distance by \textbf{540.79 km} and time by \textbf{5.41 hours}, validating its effectiveness in optimizing field operations.
+
+
+\section{Conclusion}
+Based on the results of the experiments, the Evolutionary Algorithm (EA) consistently demonstrated strong performance in the scheduling phase, effectively balancing workloads and meeting visit constraints across varying distributor profiles. For route optimization, Google OR-Tools emerged as the most robust and scalable solution, outperforming other algorithms—including ACO and PSO—particularly in large-scale and constraint-heavy scenarios.
+
+The combination of EA for scheduling and OR-Tools for routing provided the most efficient and adaptable pipeline, delivering optimal results in both distance and time minimization. This pairing proved especially effective in consistently handling real-world distributor datasets.
+
+Furthermore, when benchmarked against Salesflo, Rahguzar showed clear improvements in planning efficiency, with notable reductions in total distance traveled and route time. These findings highlight Rahguzar’s potential as a scalable and intelligent planning system that can adapt to operational complexity while delivering measurable gains in field performance.
