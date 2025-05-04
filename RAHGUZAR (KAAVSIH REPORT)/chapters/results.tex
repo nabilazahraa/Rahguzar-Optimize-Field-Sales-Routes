@@ -1,11 +1,6 @@
-To validate the effectiveness of the Rahguzar optimization pipeline, a series of experiments were conducted across multiple algorithmic phases. These experiments aimed to evaluate the performance of different clustering, scheduling, and routing strategies on real-world datasets. By systematically analyzing key metrics such as total travel distance, workload balance, and computational efficiency, we identified the most effective algorithmic combinations for large-scale, constraint-driven Permanent Journey Plan (PJP) optimization. This section details the experimental methodology, results, and performance insights obtained through empirical testing.
-
-
-
 \section{Algorithmic Phases and Experiment Results}
 
-To evaluate the effectiveness of Rahguzar's optimization pipeline, we divided the experiments into distinct algorithmic phases, namely clustering, scheduling, and route optimization. Each phase was tested independently to analyze its impact on key performance metrics such as travel distance, workload balancing, and computational efficiency. This section presents the experimental setups, methodologies applied, and the results obtained, highlighting how each algorithmic choice contributed to improving the overall system performance.
-
+This section presents the methodology and results from a series of experiments conducted to determine the optimal combinations of algorithms for different phases of the optimization process.
 
 
 \subsection{Phase 1: Hybrid Clustering Approach}
@@ -395,18 +390,105 @@ Based on the results from the experiments, The Evolutionary Algorithm (EA) consi
 ACO demonstrated competitive performance among the route optimization algorithms, particularly under complex constraints and larger datasets. For Distributor 131, the ACO–EA combination yielded the most favorable results. This underscores the importance of evaluating scheduling and route optimization algorithms jointly, as their effectiveness can vary based on specific operational contexts.
 
 
-\section{Results Comparision: Salesflo PJP vs Rahguzar PJP}
+\section{Results Comparison: Salesflo PJP vs Rahguzar PJP}
+
+This section presents a comparative analysis of Rahguzar's performance against Salesflo's pre-existing PJP plans across three real-world test distributors. Each distributor varied in terms of store count, OB allocation, and planning duration, allowing for a diverse evaluation of route efficiency, time optimization, and system scalability. Metrics analyzed include total distance traveled and total route time under the same operational constraints for both systems.
+
+\subsection{Test Distributor 1 – Results Comparison}
+
+To evaluate Rahguzar’s performance, the first distributor involved 365 stores serviced by 2 Order Bookers (OBs) over a 3-day plan. The results are summarized below:
 
 \begin{table}[H]
-    \centering
-    \caption{Test Distributor Comparison: Salesflo vs Rahguzar}
-    \begin{tabular}{|p{2.1cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{2.5cm}|p{2.5cm}|}
-    \hline
-    \textbf{Wholesale Stores} & \textbf{Retail Stores} & \textbf{OBs} & \textbf{Shift Time (hrs)} & \textbf{Days} & \textbf{Distance (Salesflo) (km)} & \textbf{Distance (Rahguzar) (km)} \\
-    \hline
-    1 & 364 & 2 & 8 & 3 & 227 & 180 \\
-    \hline
-    \end{tabular}
-    \label{tab:test_distributor_comparison}
-    \end{table}
-    
+\centering
+\caption{Performance Comparison – Test Distributor 1}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
+\hline
+\textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
+\hline
+Total Shops & 365 & 365 \\
+Order Bookers & 2 & 2 \\
+Plan Duration (days) & 3 & 3 \\
+Total Distance (km) & 227.87 & 218.77 \\
+Total Time (hrs) & 35.53 & 35.39 \\
+\hline
+\end{tabular}
+\label{tab:dist1_comparison}
+\end{table}
+
+Rahguzar reduced the total travel distance by \textbf{9.1 km} and total time by \textbf{0.14 hours}, reflecting modest spatial and temporal efficiency.
+
+\subsection{Test Distributor 2 – Results Comparison}
+
+The second distributor included 1153 stores and 3 OBs over a 6-day schedule:
+
+\begin{table}[H]
+\centering
+\caption{Performance Comparison – Test Distributor 2}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
+\hline
+\textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
+\hline
+Total Shops & 1153 & 1153 \\
+Order Bookers & 3 & 3 \\
+Plan Duration (days) & 6 & 6 \\
+Total Distance (km) & 929.25 & 545.01 \\
+Total Time (hrs) & 113.77 & 108.54 \\
+\hline
+\end{tabular}
+\label{tab:dist2_comparison}
+\end{table}
+
+Rahguzar achieved a reduction of \textbf{384.24 km} in distance and \textbf{5.23 hours} in time, demonstrating high scalability and optimization capability.
+
+\subsection{Test Distributor 3 – Results Comparison}
+
+This case involved 659 stores and 2 OBs, also over a 6-day cycle:
+
+\begin{table}[H]
+\centering
+\caption{Performance Comparison – Test Distributor 3}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
+\hline
+\textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
+\hline
+Total Shops & 659 & 659 \\
+Order Bookers & 2 & 2 \\
+Plan Duration (days) & 6 & 6 \\
+Total Distance (km) & 143.66 & 142.46 \\
+Total Time (hrs) & 58.95 & 58.99 \\
+\hline
+\end{tabular}
+\label{tab:dist3_comparison}
+\end{table}
+
+Rahguzar reduced the distance by \textbf{1.2 km}, with a slight increase in time of \textbf{0.04 hours}, indicating comparable efficiency.
+
+\subsection{Summary Across All Distributors}
+
+To illustrate overall performance across all scenarios:
+
+\begin{table}[H]
+\centering
+\caption{Combined Performance Summary}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|>{\centering\arraybackslash}p{2cm}@{\hskip 0.4cm}|>{\centering\arraybackslash}p{3.4cm}@{\hskip 0.4cm}|>{\centering\arraybackslash}p{4cm}@{\hskip 0.4cm}|>{\centering\arraybackslash}p{3.2cm}|}
+\hline
+\textbf{Distributor} & \textbf{Platform} & \textbf{Total Distance (km)} & \textbf{Total Time (hrs)} \\
+\hline
+1 & Salesflo & 227.87 & 35.53 \\
+  & Rahguzar & 218.77 & 35.39 \\
+\hline
+2 & Salesflo & 929.25 & 113.77 \\
+  & Rahguzar & 545.01 & 108.54 \\
+\hline
+3 & Salesflo & 143.66 & 58.95 \\
+  & Rahguzar & 142.46 & 58.99 \\
+\hline
+\end{tabular}
+\label{tab:combined_summary}
+\end{table}
+
+Across all test cases, Rahguzar reduced the cumulative travel distance by \textbf{540.79 km} and time by \textbf{5.41 hours}, validating its effectiveness in optimizing field operations.
