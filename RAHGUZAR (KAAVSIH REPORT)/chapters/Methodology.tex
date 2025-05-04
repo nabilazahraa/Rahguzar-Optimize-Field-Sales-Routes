@@ -32,22 +32,36 @@ The clustering phase assigns stores to order bookers through a hybrid clustering
 C_i = \frac{1}{N_i} \sum_{x \in S_i} x
 \]
 
-Where: \\
-$C_i$: The new centroid of cluster $i$ \\
-$N_i$: The number of stores in cluster $i$ \\
-$x \in S_i$: The coordinates of each store $x$ in cluster $S_i$
+\textbf{where:}
+\begin{itemize}
+  \item $C_i$: The new centroid of cluster $i$
+  \item $N_i$: The number of stores in cluster $i$
+  \item $x \in S_i$: The coordinates of each store $x$ in cluster $S_i$
+\end{itemize}
+% Where: 
+% Where: \\
+% $C_i$: The new centroid of cluster $i$ \\
+% $N_i$: The number of stores in cluster $i$ \\
+% $x \in S_i$: The coordinates of each store $x$ in cluster $S_i$
 
 \textbf{Outlier Reassignment.} After initial refinement, stores that lie significantly far from their assigned cluster centroid are identified using:
 
 \[
 D_{s,c} > \mu + \sigma \cdot k
 \]
+\textbf{where:}
+\begin{itemize}
+  \item $D_{s,c}$: Distance of store $s$ from the centroid of its assigned cluster $c$ 
+  \item $\mu$: Mean distance of all stores in the cluster from the centroid
+  \item $\sigma$: Standard deviation of the distances
+  \item $k$: Scaling factor used for thresholding
+\end{itemize}
 
-Where: \\
-$D_{s,c}$: Distance of store $s$ from the centroid of its assigned cluster $c$ \\
-$\mu$: Mean distance of all stores in the cluster from the centroid \\
-$\sigma$: Standard deviation of the distances \\
-$k$: Scaling factor used for thresholding
+% Where: \\
+% $D_{s,c}$: Distance of store $s$ from the centroid of its assigned cluster $c$ \\
+% $\mu$: Mean distance of all stores in the cluster from the centroid \\
+% $\sigma$: Standard deviation of the distances \\
+% $k$: Scaling factor used for thresholding
 
 Such outliers are then reassigned to the nearest neighboring cluster. This improves overall cluster consistency and prevents inefficiencies in route planning due to geographical anomalies.
 
@@ -57,9 +71,15 @@ Such outliers are then reassigned to the nearest neighboring cluster. This impro
 SSE = \sum_{c}(W_c - \bar{W})^2
 \]
 
-Where: \\
-$W_c$: Total workload of cluster $c$ \\
-$\bar{W}$: Average workload across all clusters
+\textbf{where:}
+\begin{itemize}
+  \item $W_c$: Total workload of cluster $c$ 
+  \item $\bar{W}$: Average workload across all clusters
+\end{itemize}
+% Where: 
+% \\
+% $W_c$: Total workload of cluster $c$ \\
+% $\bar{W}$: Average workload across all clusters
 
 This multi-step clustering strategy ensures both spatial efficiency and fair workload distribution across field staff. The use of MST helps with initial proximity grouping, K-means ensures tight clusters, outlier reassignment handles anomalies, and workload balancing ensures equity. Together, they set a strong foundation for downstream scheduling and routing.
 
@@ -75,7 +95,7 @@ After clustering, each order booker’s list of stores is scheduled across the w
 F = T_{\text{total}} + P_{\text{mismatch}} + P_{\text{imbalance}} + P_{\text{geo}}
 \]
 
-\textbf{Where:}
+\textbf{where:}
 \begin{itemize}
   \item $T_{\text{total}}$: Total time taken for travel and service across all days
   \item $P_{\text{mismatch}}$: Penalty for not meeting store visit frequency
@@ -90,7 +110,7 @@ This function balances multiple scheduling objectives. A lower score indicates a
 T_{\text{day}} = \sum_{i=1}^{n} T_{\text{travel},i} + \sum_{i=1}^{n} T_{\text{service},i} \leq 480
 \]
 
-\textbf{Where:}
+\textbf{where:}
 \begin{itemize}
   \item $T_{\text{travel},i}$: Travel time to store $i$
   \item $T_{\text{service},i}$: Service time at store $i$
@@ -112,7 +132,7 @@ For each day’s assigned store list, the visit sequence is optimized using a tw
 \min \sum_{i=1}^{r-1} D_{i,i+1} + D_{r,1}
 \]
 
-\textbf{Where:}
+\textbf{where:}
 \begin{itemize}
   \item $r$: Total number of stores in the daily route
   \item $D_{i,i+1}$: Distance between consecutive stores $i$ and $i+1$
@@ -174,6 +194,7 @@ Combining the three stages, the total time complexity of Rahguzar’s algorithm 
 \[
 O(n^2 + nk + P \cdot n \cdot G_{EA} + d \cdot r^2)
 \]
-  
+
+
 
 This formulation reflects both theoretical bounds and empirical performance. In practice, early stopping, parallelism, and per-cluster decomposition significantly reduce runtime. Rahguzar consistently generated optimized plans for hundreds of stores in under 5 minutes on a standard multi-core machine.
