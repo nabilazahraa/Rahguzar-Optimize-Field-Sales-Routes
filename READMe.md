@@ -79,7 +79,7 @@ docker run -t -i -p 5002:5000 osrm/osrm-backend osrm-routed /data/map.osrm
 ```
 
 ### 4. PostgreSQL (RDS or Local)
-Use schema.sql to initialize database tables.
+Use schema.sql to initialize database tables. The data is empty in the tables so you will need to populate it.
 
 ---
 
