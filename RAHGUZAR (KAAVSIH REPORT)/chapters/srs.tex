@@ -4,20 +4,6 @@ This Software Requirements Specification (SRS) outlines the software and system 
 
 
 % This section describes each function/feature provided by our system. These functions are logically grouped into modules based on their purpose/users/mode of operations etc (as per our system). A functional hierarchy may look like:
-% \begin{outline}
-%   \1 Module 1:
-%   \2 Function 1:
-%   \2 Function 2:
-%   \3 Sub Function 1
-%   \3 Sub Function 2
-%   \1 Module 2:
-%   \2 Function 1:
-%   \2 Function 2:
-%   \1 .........
-% \end{outline}
-
-
-
 
 The functional requirements for this system focus on creating an efficient journey-planning solution tailored for order bookers and sales representatives. This system is designed to optimize routes based on key operational parameters and provide dynamic rerouting, while also supporting targeted store visits and frequency schedules. Additional modules include a user-friendly web platform, pilot testing and validation, and performance monitoring to ensure enhanced efficiency and measurable sales impact.The following are the functional requirements for each module and their respective functions.
 
@@ -41,9 +27,6 @@ The functional requirements for this system focus on creating an efficient journ
             Account for different service time requirements at each store.
     \end{itemize}
 \end{itemize}
- \begin{itemize}
-     \item Include a feature to assign priority to specific parameters to adapt the optimization to business needs.
- \end{itemize}
 
 \subsubsection*{Function 2: Dynamic Rerouting}
 
@@ -51,7 +34,7 @@ The functional requirements for this system focus on creating an efficient journ
     % \item The rerouting should optimize new paths instantly to maintain efficiency.
 
     \begin{itemize}
-        \item It allows users to interactively adjust key parameters of the route optimization algorithm, such as the number of order bookers and the number of stores per booker, directly on the display screen.
+        \item It allows users to adjust the generated routes based on their preferences. They can move stores between order bookers and modify store status (e.g., active/inactive).
         \item It simply enables real-time rerouting, with the algorithm instantly updating the allocation of stores and route paths to reflect user preferences, providing flexibility and adaptability in journey planning.
     \end{itemize}
 
@@ -60,12 +43,12 @@ The functional requirements for this system focus on creating an efficient journ
 % \subsection*{Module 2: Weekly Store Visit Optimization 
 % }
 
-\subsubsection*{Function 3 : Store Visit Frequency: 
+\subsubsection*{Function 3: Store Visit Frequency: 
 }
 
 \begin{itemize}
-    \item Design the algorithm to include visit frequency for each store (e.g., once, twice, or three times a week).
-    \item Ensure that the routes align with required visit frequencies without any overlap or gaps.
+    \item Design the algorithm to include visit frequency for each store (e.g., once, twice a week).
+    \item Ensure that the routes align with required visit frequencies without any overlap and maintains at least a 3 day gaps between repeated visits.
 \end{itemize}
 
 \subsubsection*{Function 4: Journey Planning for Different Timeframes: 
@@ -73,7 +56,7 @@ The functional requirements for this system focus on creating an efficient journ
 
 \begin{itemize}
     \item Support the generation of routes 
-by allowing monthly PJP creation with customizable weekly patterns (like odd/even weeks) and enable downloads for extended periods, such as a year. based on the target timeframe.
+by allowing custom day plan creation and enable downloads for extended periods, based on the target timeframe.
     \item Ensure that stores are scheduled accurately according to their frequency needs while minimizing travel and maximizing coverage.
 \end{itemize}
 
@@ -92,12 +75,14 @@ by allowing monthly PJP creation with customizable weekly patterns (like odd/eve
         \item[] \textbf{Sub Function 2:} Sales channel type (e.g., wholesale or retail).
     \end{itemize}
     \item Enable users to filter stores by parameters like region, sales channel, or visit frequency. Allow custom filters linked to all stores by uploading relevant data (e.g., location, sales volume), enabling dynamic application across stores. This approach enhances flexibility and control in route optimization.
+    \item Enable users to modify store status (active/inactive) directly within the system.
 \end{itemize}
 
 \subsubsection*{Function 6: Targeted Journey Plans:}
  
 \begin{itemize}
     \item Enable the system to generate routes targeting specific store types (e.g., only wholesale stores in a particular region).
+    \item Allow users to select areas and stores for targeted visits, ensuring that the algorithm generates routes based on these selections.
 \end{itemize}
 
  
@@ -124,7 +109,7 @@ by allowing monthly PJP creation with customizable weekly patterns (like odd/eve
 }
 
 \begin{itemize}
-    \item Provide a manual override feature that allows managers to create or adjust routes manually, even if automated suggestions exist.
+    \item Provide a manual override feature that allows managers to adjust routes manually.
     \item Include input options for master data (store profiles, visit frequencies, geographical details) directly within the platform.
 \end{itemize}
 
@@ -177,24 +162,12 @@ by allowing monthly PJP creation with customizable weekly patterns (like odd/eve
 \end{itemize}
  
 
-\subsubsection*{Function 2: North Star Metric Tracking: 
-}
-
-\begin{itemize}
-    \item Focus on monitoring the primary metric: "Increase in average daily sales per sales representative."
-\end{itemize}
-
 \subsubsection*{Function 3: Metrics Dashboard:
 }
 
 \begin{itemize}
     \item Develop a dashboard to visualize KPIs, providing insights into efficiency improvements, time savings, and sales increases.
 \end{itemize}
-
-
-
-
-
 
 
 
@@ -209,15 +182,10 @@ The Non-functional requirements define the quality and performance attributes of
 
 
 
-
-
-
-
-
 \begin{enumerate}
     \item \textbf{Scalability, Efficiency, and Memory Optimization}
     \begin{itemize}
-        \item The system is designed to efficiently handle large datasets and scale up to 2000 stores effectively as the amount of data increases, ensuring optimal performance and quick response times within 2 minutes for route generation.
+        \item The system is designed to efficiently handle large datasets and scale up to 1000+ stores effectively as the amount of data increases, ensuring optimal performance and quick response times within 2 minutes for route generation.
         \item It should also have a low memory footprint, ensuring that it can scale effectively without degrading system performance or requiring excessive computational resources.
     \end{itemize}
     
@@ -226,17 +194,17 @@ The Non-functional requirements define the quality and performance attributes of
         \item A user-friendly web application interface is required, allowing users to manage, optimize, and adjust journey plans easily.
         \item The map interface must provide intuitive visualization and interactivity for planning and real-time adjustments.
     \end{itemize}
-    \newpage
+    
     \item \textbf{Reliability and Performance}
     \begin{itemize}
-        \item The AI-driven route optimization algorithm should be robust, quickly generating optimal routes based on parameter changes, such as order booker shifts or the number of stores per booker.
+        \item The optimization algorithm should be robust, quickly generating optimal routes based on parameter changes, such as order booker shifts or the number of stores per booker.
         \item The system should maintain a minimum uptime of 95\%, allowing for up to 36 hours of downtime per month for a smooth user experience.
         
     \end{itemize}
     
     \item \textbf{Security}
     \begin{itemize}
-        \item Data security protocols should protect sensitive information such as store profiles and geographical hierarchies, especially when integrating third-party APIs like Google Maps.
+        \item Data security protocols should protect sensitive information such as store profiles and geographical hierarchies, especially when integrating third-party APIs.
         \item User authentication mechanisms should be implemented to ensure that only authorized personnel can access sensitive data and functionalities within the system.
 
     \end{itemize}
@@ -259,105 +227,152 @@ The Non-functional requirements define the quality and performance attributes of
 % We expect every project to have at least of the following subsections. This section must be aligned with your project deliverables. Please consult with your project supervisor regarding which of the following section(s) you should include in your report
 
 \subsection{User Interfaces}
-The following wireframes have been created for our system to give an overview of the features it will provide and what an overview of the interface will look like.
+The Web application interface is designed to be user-friendly and intuitive, allowing managers to easily navigate through the system. The interface includes various features such as route management, store profiling, and performance monitoring. The design focuses on providing a seamless experience for users, enabling them to efficiently manage their journey plans and access relevant data.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/Login.png} % Adjust width as needed
-    \caption{Sign In Screen}
+    \caption{Login Screen}
     \label{fig:image1}
 \end{figure}
-The sign-in screen is shown in Figure~\ref{fig:image1}, letting the user enter their email and password. They also have the option to access the sign up screen using the hyperlink in the image called "Sign up". 
+The login screen is shown in Figure~\ref{fig:image1}, letting the user enter their username and password to login.
+
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{images/Sign Up.png} % Adjust width as needed
-    \caption{Sign Up Screen}
-    \label{fig:image2}
-\end{figure}
-The sign-up screen is shown in Figure~\ref{fig:image2}, letting the user enter their full name, email and password to create an account.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{images/Home.png} % Adjust width as needed
+    \includegraphics[width=1\textwidth]{images/StartScreen.png} % Adjust width as needed
     \caption{Home Page}
     \label{fig:image3}
 \end{figure}
-The ``Home Page" screen is shown in Figure~\ref{fig:image3}, letting the users set the parameters for their PJP. Moreover, the navigation tab lets them switch between tabs such as home page, dashboard, and store management.
+The ``Home Page" screen is shown in Figure~\ref{fig:image3}. The Route plan generator is the main screen where the instructions to start are provided.
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{images/Plan Route.png} % Adjust width as needed
-%     \caption{Plan Route Page}
-%     \label{fig:image4}
-% \end{figure}
-% The ``Plan Route" screen is shown in Figure~\ref{fig:image4}. In this screen, the manager will be able to create routes by setting the starting point, adding the stores to stop at, the number of orderbookres that will be involved in the journey, apply filters to stores by their classification code and choosing if they want to include only merchandised stores in the plan. Moreover, the manager can make these routes for a single day, week, or a month.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{images/View Stores.png} % Adjust width as needed
+    \includegraphics[width=1\textwidth]{images/Map.png} % Adjust width as needed
+    \caption{Plan Route Page}
+    \label{fig:image4}
+\end{figure}
+The ``Map" screen is shown in Figure~\ref{fig:image4}. In this screen, the manager will be able to view the map and the stores on it. The manager can select stores using area selection or point selection which will be used in the plan.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Configure.png} % Adjust width as needed
+    \caption{Configure Route Parameters}
+    \label{fig:image4}
+\end{figure}
+The manager can configure the route parameters in the ``Configure Route" screen shown in Figure~\ref{fig:image4}. In this screen, the manager will be able to set the shift timings, number of order bookers, and the number of stores to visit. The manager can also set the travel time and service time for each store.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/plan.png} % Adjust width as needed
+    \caption{View Routes Page}
+    \label{fig:image6}
+\end{figure}
+The ``Plan Route" screen is shown in Figure~\ref{fig:image6}. In this screen, the manager will be able to view the routes generated by the system. The manager can also view the route details such as the distance, travel time, and service time for each store. The manager can also view the route on the map and download it in a CSV format.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Cluster map.png} % Adjust width as needed
+    \caption{Cluster Map Page}
+    \label{fig:image6}
+\end{figure}
+The ``Cluster Map" screen is shown in Figure~\ref{fig:image6}. In this screen, the manager will be able to view the clusters generated by the system. The manager can modify the stores in clusters by removing them or moving them to another cluster, after which they can dynamically reroute the plan.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/stores.png} % Adjust width as needed
     \caption{Stores Management Page}
     \label{fig:image5}
 \end{figure}
-The "Stores Management" screen is shown in Figure~\ref{fig:image5}. In this screen, the manager will be able to search a certain store, apply filters in their search, and view its information such as its coordinates, its geographical coordinates. The manager has the option to view more than 1 store's information at a time, and to decide to set a store active or inactive.
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{images/View Routes.png} % Adjust width as needed
-%     \caption{View Routes Page}
-%     \label{fig:image6}
-% \end{figure}
-% The ``View Routes" screen is shown in Figure~\ref{fig:image6}. In this screen, the manager will be able to select a certain route and view its information such as the sets of locations it is comprised of, the status of the route. If a certain route has started the manager can see the status of each store location (whether it has been visited or not, the estimated time of visiting). Moreover, the manager can access the dashboard that displays route information such as the starting adn estimated end time, the total distance of the route, the distance covered by it and the number of stops involved.
+The "Stores Management" screen is shown in Figure~\ref{fig:image5}. In this screen, the manager will be able to search a certain store, apply filters in their search, and view its information such as its coordinates. The manager has the option to view more than 1 store's information at a time, and to decide to set a store active or inactive.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{images/Dashboard 2.png} % Adjust width as needed
+    \includegraphics[width=1\textwidth]{images/store filters.png} % Adjust width as needed
+    \caption{Store Filters}
+    \label{fig:image6}
+\end{figure}
+The ``Store Filters" screen is shown in Figure~\ref{fig:image6}. In this screen, the manager will be able to view the filters applied to the stores.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/dashboard.png} % Adjust width as needed
     \caption{Dashboard Page}
     \label{fig:image7}
 \end{figure}
-The ``Dashboard" screen is shown in Figure~\ref{fig:image7}. In this screen, the manager will be able to view certain KPIs that indicate the overall performance of the routes such as Average Daily Distance and Workload per Representative, Average travel time per per orderbooker or over all orderbookers, and etc. 
+The ``Dashboard" screen is shown in Figure~\ref{fig:image7}. In this screen, the manager will be able to view certain KPIs that indicate the overall performance of the routes such as Average Daily Distance and Workload per Representative, Average travel time per per orderbooker or over all orderbookers. 
 
 \subsection{Application Program Interface (API)}
-The API layer is the backbone of our system, enabling seamless communication between the frontend, backend, and external services. Designed to support efficient data exchange and operational scalability, this API structure ensures the system remains responsive and adaptable to business needs.
+The API layer is the backbone of the Rahguzar system, enabling seamless communication between the frontend, backend, and external services. Designed using REST principles, the API ensures efficient data exchange, operational scalability, and secure access control.
 
 \subsubsection{REST API Endpoints}
 The system is built with RESTful API endpoints that manage data transfer between components. Key endpoints include:
+
 \begin{itemize}
-    \item \textbf{Route Management Endpoints:} These endpoints facilitate route creation, configuration, and optimization. Managers can define routes, set parameters such as shift times, service times, and visit frequency, and retrieve optimized route plans tailored to specific business needs.
-    \item \textbf{Visit Management Endpoints:} Used to track and manage visits by field representatives. These endpoints enable updates on visit status, start and end times, store visit durations, and compliance with predefined visit schedules.
-    \item \textbf{Store Profile Endpoints:} This set of endpoints allows access to and modification of store data. Store profiles include geographic location, classification, operational hours, and specific requirements, supporting managers in executing their tasks efficiently.
+    \item \textbf{Route Management Endpoints:}
+    \begin{itemize}
+        \item \texttt{POST /optimize} — Submits parameters to generate optimized journey plans.
+        \item \texttt{POST /reroute-clusters} — Dynamically reassigns stores and reroutes OBs.
+        \item \texttt{GET /get\_routes} — Retrieves finalized optimized routes.
+    \end{itemize}
+
+    \item \textbf{Store Profile Endpoints:}
+    \begin{itemize}
+        \item \texttt{GET /api/stores} — Fetches all store profiles.
+        \item \texttt{POST /assign\_store} — Assigns a store to an order booker.
+        \item \texttt{PUT /api/stores/\{store\_id\}} — Updates metadata of a specific store.
+    \end{itemize}
+
+    \item \textbf{Dashboard and KPI Endpoints:}
+    \begin{itemize}
+        \item \texttt{GET /get\_kpi\_data} — Returns key performance indicators.
+        \item \texttt{GET /get\_graph\_data} — Fetches time-series analytics for visualization.
+    \end{itemize}
 \end{itemize}
 
 \subsubsection{Authentication and Authorization}
-To secure API access, the Rahguzar system employs JWT (JSON Web Tokens) for user authentication, ensuring that only authorized users can access or modify data.
+To secure API access, the Rahguzar system employs JWT (JSON Web Tokens) for user authentication.
+
 \begin{itemize}
-    \item \textbf{JWT Authentication:} When a user logs in, a JWT is issued and must be included with all subsequent requests. This token-based approach enhances security by verifying user identity on each API call.
+    \item \texttt{POST /login} — Authenticates user credentials and returns a JWT token.
+    \item \textbf{Token Usage:} The JWT token must be attached to the \texttt{Authorization} header as \texttt{Bearer <token>} in all subsequent API requests.
 \end{itemize}
 
 \subsubsection{External Services Integration}
-To support essential functionalities like mapping, the Rahguzar system integrates with external services:
+To support essential routing and mapping functionalities, the system integrates with third-party services:
+
 \begin{itemize}
-    \item \textbf{Google Maps API:} This API provides map visualization and geolocation services, enabling managers and field staff to view real-time route details. It is also used for calculating distances, travel times, and generating optimized paths between stops on a route.
+    \item \textbf{Open Source Routing Machine (OSRM):}
+    \begin{itemize}
+        \item Dockerized and hosted on an EC2 instance for internal routing.
+        \item \textbf{Endpoint:} \texttt{GET /route/v1/driving/\{lon,lat;lon,lat,...\}} — Returns route geometry and travel metadata in GeoJSON format.
+    \end{itemize}
 \end{itemize}
 
 \subsubsection{Route Optimization Engine}
-The Route Optimization Engine is a core component of Rahguzar, leveraging advanced algorithms to generate efficient routes.
+The route optimization component is embedded in the backend, using hybrid algorithms for clustering, scheduling, and routing.
+
 \begin{itemize}
-    \item \textbf{Python + OR-Tools Integration:} Built on Python with OR-Tools, this engine generates optimized routes by balancing factors such as total travel time, number of stops, and time spent at each store. This feature is essential for ensuring that routes are aligned with operational goals while maximizing efficiency.
-    \item \textbf{Geospatial Services (Geopy):} Geopy is used for geocoding services and calculating geospatial data, helping to accurately map store locations and account for distances between various stops. This service plays a key role in generating precise, reliable routes for field operations.
+    \item \textbf{Python + OR-Tools:} Implements clustering, scheduling and route generation logic using Evolutionary Algorithms and TSP solvers.
 \end{itemize}
 
-\subsubsection{Data Synchronization}
-The system employs MongoDB as the primary data store, providing robust data storage and synchronization capabilities.
+\subsubsection{Data Storage and Synchronization}
+The system utilizes a relational data model hosted on AWS RDS using PostgreSQL.
+
 \begin{itemize}
-    \item \textbf{Database Sync with MongoDB:} All route data, store profiles, and visit records are stored in MongoDB, ensuring persistent storage of essential information. MongoDB’s flexibility supports the diverse data needs of the Rahguzar system, from route optimization to visit management.
-    \item \textbf{Data Update Mechanisms:} The system includes mechanisms to synchronize data across different modules and handle real-time updates, especially for managers and field staff working offline. This ensures data integrity and consistency, even in dynamic environments. To ensure scalability and high availability, MongoDB and related services are hosted on a cloud platform such as AWS, enabling the system to handle larger datasets and user traffic efficiently as the application scales.
+    \item \textbf{PostgreSQL (via RDS):} Stores all persistent data including users, stores, routes, plans, and KPI metrics.
+    \item \textbf{Synchronization Mechanisms:} Data flows between backend modules and frontend views are synchronized via well-defined API transactions and database-level consistency checks.
 \end{itemize}
 
 \subsubsection{Data Monitoring}
 To enable effective monitoring, the API supports data updates and performance tracking:
+
 \begin{itemize}
-    \item \textbf{Performance Analytics:} API endpoints allow managers to monitor route efficiency through Key Performance Indicators (KPIs), such as average travel time, visit completion rates, and operational metrics. This feature facilitates continuous improvement of route plans and decision-making based on real data, backed by scalable cloud infrastructure for robust data processing and analytics.
+    \item \textbf{Performance Analytics:} Endpoints such as \texttt{/get\_kpi\_data} and \texttt{/get\_graph\_data} provide real-time insights on route efficiency, travel time, visit compliance, workload distribution, and other KPIs to support ongoing performance tuning and planning.
 \end{itemize}
+
 
 
 \subsection{Hardware/Communication Interfaces}
@@ -373,12 +388,27 @@ Manager Workstations: Managers access the system through web browsers on desktop
 \end{itemize}
 
 \subsubsection{Server-Side Infrastructure}
-Cloud-Based Servers: The backend system, hosted on a cloud platform such as AWS, provides scalability, availability, and fault tolerance. Specifications include:
+The backend and database components are hosted on cloud infrastructure (AWS) to ensure availability, fault tolerance, and scalability.
+
 \begin{itemize}
-    \item \textbf{Processor:} Multi-core virtual CPUs (e.g., AWS EC2).
-    \item \textbf{Memory:} 4GB or more, scalable as required.
-    \item \textbf{Storage:} SSD-based storage for rapid access to route, store, and visit data.
-    \item \textbf{Network Configuration:} Configured for secure HTTPS communication to maintain data integrity and privacy.
+    \item \textbf{Application Server (EC2):}
+    \begin{itemize}
+        \item Hosted on an Amazon EC2 instance (e.g., t3.medium or higher).
+        \item Runs the Flask-based backend application, route optimization engine, and API endpoints.
+        \item Configured with Gunicorn and optionally Nginx for request handling and reverse proxy.
+        \item Operating System: Ubuntu Server 20.04 LTS or equivalent.
+    \end{itemize}
+
+    \item \textbf{Database Server (RDS):}
+    \begin{itemize}
+        \item PostgreSQL instance managed via Amazon RDS.
+        \item Stores all system data including user credentials, store metadata, plan configurations, route outputs, and KPI records.
+        \item SSD-based storage with automated backup and optional multi-AZ redundancy.
+    \end{itemize}
+
+    \item \textbf{Storage:} EC2 instance uses SSD storage for intermediate computation results and application logs.
+
+    \item \textbf{Networking:} Secured via AWS security groups. Backend accessible via HTTPS; database accessible only through private IPs or controlled access rules.
 \end{itemize}
 
 \subsubsection{Communication Interfaces}
@@ -392,8 +422,18 @@ Cloud-Based Servers: The backend system, hosted on a cloud platform such as AWS,
     \end{itemize}
 \end{itemize}
 
-\subsubsection{External Services Communication}
-Google Maps API: Used for map visualization, geolocation, and distance calculation, requiring internet connectivity for location-based data.
+\subsubsection{Routing Service (Dockerized OSRM)}
+The system utilizes a containerized instance of the Open Source Routing Machine (OSRM) to compute real-world travel distances and generate accurate road-based routes.
+
+\begin{itemize}
+    \item \textbf{Deployment Method:} OSRM is deployed via Docker on an EC2 instance to ensure isolation, portability, and ease of deployment.
+    \item \textbf{Routing Backend:} Based on preprocessed OpenStreetMap data using the `osrm-backend` image.
+    \item \textbf{Port Configuration:} Accessible via HTTP on port 5002 internally, secured behind firewall rules.
+    \item \textbf{Container Runtime:} Docker Engine on Ubuntu Server.
+    \item \textbf{Data Source:} OSM PBF file for the region of operation (e.g., Pakistan or selected city).
+    \item \textbf{Use Case Integration:} Accessed by the backend during route optimization to compute driving distances between stores.
+\end{itemize}
+
 
 
 \section{Use Cases}
@@ -403,18 +443,28 @@ Google Maps API: Used for map visualization, geolocation, and distance calculati
         \item \textbf{Description:} Ensure secure access to the system for both managers and field staff.
         \item \textbf{Actions:}
         \begin{itemize}
-            \item As a manager, I want to log in securely to access my dashboard and manage routes.
+            \item As a manager, I want to log in securely to access my dashboard and create journey plans.
             \item As the system, I need to authenticate users to ensure only authorized managers and field staff access the application.
         \end{itemize}
     \end{itemize}
     
-    \item \textbf{Route Creation, Configuration, and Optimization}
+    \item \textbf{Route Plan Creation, Configuration, and Optimization}
     \begin{itemize}
         \item \textbf{Description:} Enable the creation of optimized routes based on configurable parameters.
         \item \textbf{Actions:}
         \begin{itemize}
             \item As a manager, I want to create a new optimized route for my field team, configuring parameters like shift timings and visit frequency to align with operational requirements.
             \item As the system, I need to generate optimized routes using parameters such as shift times, visit frequencies, and priorities, ensuring efficient route suggestions for managers.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Plan Generation}
+    \begin{itemize}
+        \item \textbf{Description:} Generate long-term journey plans based on store visit requirements.
+        \item \textbf{Actions:}
+        \begin{itemize}
+            \item As a manager, I want the ability to generate custom day journey plans, providing my team with a consistent schedule for store visits.
+            \item As the system, I need to automatically generate journey plans for custom day schedules based on specified visit frequencies.
         \end{itemize}
     \end{itemize}
     
@@ -436,16 +486,6 @@ Google Maps API: Used for map visualization, geolocation, and distance calculati
         \begin{itemize}
             \item As a manager, I want to export and share finalized routes with field staff so they have clear guidance on their daily tasks and destinations.
             \item As the system, I need to support data export so that managers can download route plans and reports for offline access if needed.
-        \end{itemize}
-    \end{itemize}
-    
-    \item \textbf{Plan Generation (Weekly/Monthly)}
-    \begin{itemize}
-        \item \textbf{Description:} Generate long-term journey plans based on store visit requirements.
-        \item \textbf{Actions:}
-        \begin{itemize}
-            \item As a manager, I want the ability to generate weekly or monthly journey plans, providing my team with a consistent schedule for store visits.
-            \item As the system, I need to automatically generate journey plans for weekly and monthly schedules based on specified visit frequencies.
         \end{itemize}
     \end{itemize}
     
@@ -475,7 +515,7 @@ Google Maps API: Used for map visualization, geolocation, and distance calculati
         \item \textbf{Actions:}
         \begin{itemize}
             \item As a manager, I want to track KPIs like travel time and visit completion rates to assess route performance and make improvements.
-            \item As the system, I need to automate KPI tracking (e.g., average travel time, visit completion) to provide ongoing insights without requiring manual input from managers.
+            \item As the system, I need to automate KPI tracking (e.g., average travel time, total distance, workload) to provide ongoing insights without requiring manual input from managers.
         \end{itemize}
     \end{itemize}
     
@@ -484,53 +524,28 @@ Google Maps API: Used for map visualization, geolocation, and distance calculati
         \item \textbf{Description:} Sync store and route data to ensure accurate and up-to-date information.
         \item \textbf{Actions:}
         \begin{itemize}
-            \item As a manager, I want the system to view store information and route statuses, giving me reliable data for decision-making.
+            \item As a manager, I want the system to view store information and modify store statuses, giving me reliable data for decision-making.
             \item As the system, I need to synchronize with external databases to maintain current and accurate store and route data for all users.
         \end{itemize}
     \end{itemize}
     
-    \item \textbf{Store Visit Recording and Analysis}
-    \begin{itemize}
-        \item \textbf{Description:} Record visit details and enable analysis of visit data for operational insights.
-        \item \textbf{Actions:}
-        \begin{itemize}
-            \item As a manager, I want each store visit’s details recorded, allowing me to analyse time spent and identify areas for improvement.
-            \item As the system, I need to log each store visit's start time, end time, and duration, providing accurate records for analysis and performance tracking.
-        \end{itemize}
-    \end{itemize}
-    
-    \item \textbf{Pilot Testing and Validation}
-    \begin{itemize}
-        \item \textbf{Description:} Conduct pilot tests to validate system effectiveness in real-world scenarios.
-        \item \textbf{Actions:}
-        \begin{itemize}
-            \item As a manager, I want to test the system in a pilot environment to evaluate its performance and impact before full deployment.
-            \item As the system, I need to support pilot testing by recording metrics during live tests, allowing managers to assess effectiveness and identify areas for improvement.
-        \end{itemize}
-    \end{itemize}
+
     
 \end{itemize}
 
 \begin{center}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{images/Rahguzar - Use Case - HighLevel (1).png} 
-        \caption{Rahguzar's High-Level Use Case Diagram for the Entire System}
-\href{https://tinyurl.com/USECASEDIAG}{(Click here to view a high-quality version of this image)}
-    \end{figure}
 
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.98\textwidth]{images/Rahguzar - Use Case - Core System.png} 
-        \caption{Rahguzar's Core System Use Case Diagram within the Main System}
+        \caption{Rahguzar's Use Case Diagram}
     \end{figure}
 \end{center}
 
 \section{Datasets}
 % This section describes the specific dataset(s) used to build our system. An appropriate snapshot of the dataset(s) is also included. Futher details, when needed, are presented in the appendix.
-This section outlines the primary datasets that will support Rahguzar’s intelligent route planning and scheduling functionalities. These datasets provide crucial information on stores, visits, journey plans, and operational factors essential for optimized route generation. As per the NDA with SalesFlo, we are not permitted to share or disclose the data provided to us. Further data and details are awaited from SalesFlo, and this section reflects the information we currently have.
-
-\subsection*{Overview of Required Datasets}
+This section outlines the primary datasets that will support Rahguzar’s intelligent route planning and scheduling functionalities. These datasets provide crucial information on stores, visits, journey plans, and operational factors essential for optimized route generation. As per the NDA with SalesFlo, we are not permitted to share or disclose the data provided to us. 
+\subsection*{Overview of Datasets}
 
 \begin{enumerate}
 
@@ -570,52 +585,51 @@ This dataset supports route optimization by providing insights into visit freque
 
 \end{enumerate}
 
-\subsection*{Additional Datasets Needed}
+% \subsection*{Additional Datasets Needed}
 
-To enhance Rahguzar's functionality, the following additional datasets may be required:
+% To enhance Rahguzar's functionality, the following additional datasets may be required:
 
-\begin{enumerate}
+% \begin{enumerate}
 
-\item \textbf{Order Booker Shifts Dataset} \\
-This dataset contains information on the availability and shifts of order bookers. Key fields include:
-    \begin{itemize}
-        \item \textbf{bookerid:} Unique identifier for each order booker.
-        \item \textbf{shiftstarttime and shiftendtime:} Start and end times of each shift.
-        \item \textbf{availabilitystatus:} Indicates whether the booker is available or unavailable.
-    \end{itemize}
-This dataset is essential for scheduling routes within the working hours of each order booker, optimizing route generation according to workforce availability.
+% \item \textbf{Order Booker Shifts Dataset} \\
+% This dataset contains information on the availability and shifts of order bookers. Key fields include:
+%     \begin{itemize}
+%         \item \textbf{bookerid:} Unique identifier for each order booker.
+%         \item \textbf{shiftstarttime and shiftendtime:} Start and end times of each shift.
+%         \item \textbf{availabilitystatus:} Indicates whether the booker is available or unavailable.
+%     \end{itemize}
+% This dataset is essential for scheduling routes within the working hours of each order booker, optimizing route generation according to workforce availability.
 
-\item \textbf{Geographic Data} \\
-Geographic and road network data provide detailed map and routing information, potentially sourced via the Google Maps API or GIS data services. Key components include:
-    \begin{itemize}
-        \item \textbf{roadnetwork:} Map of roads, including distances and travel times.
-        \item \textbf{trafficpatterns:} Historical traffic data for congestion analysis.
-        \item \textbf{geofencingdata:} Predefined boundaries for specific zones, regions, or territories.
-    \end{itemize}
-This dataset enables precise route calculations, factoring in real-time or historical traffic conditions to minimize travel time.
+% \item \textbf{Geographic Data} \\
+% Geographic and road network data provide detailed map and routing information, potentially sourced via the Google Maps API or GIS data services. Key components include:
+%     \begin{itemize}
+%         \item \textbf{roadnetwork:} Map of roads, including distances and travel times.
+%         \item \textbf{trafficpatterns:} Historical traffic data for congestion analysis.
+%         \item \textbf{geofencingdata:} Predefined boundaries for specific zones, regions, or territories.
+%     \end{itemize}
+% This dataset enables precise route calculations, factoring in real-time or historical traffic conditions to minimize travel time.
 
-\item \textbf{Store Activity Requirements} \\
-This dataset details the specific activities and time requirements for each store visit, allowing Rahguzar to optimize for different tasks performed at each store. Key fields include:
-    \begin{itemize}
-        \item \textbf{storecode:} Identifier for each store.
-        \item \textbf{activitytype:} Type of activity required (e.g., stock check, merchandising).
-        \item \textbf{estimatedtime:} Average time required to complete each activity.
-    \end{itemize}
-This dataset supports the system’s ability to tailor visit durations based on store requirements, leading to more accurate time estimates for each route.
-\end{enumerate}
+% \item \textbf{Store Activity Requirements} \\
+% This dataset details the specific activities and time requirements for each store visit, allowing Rahguzar to optimize for different tasks performed at each store. Key fields include:
+%     \begin{itemize}
+%         \item \textbf{storecode:} Identifier for each store.
+%         \item \textbf{activitytype:} Type of activity required (e.g., stock check, merchandising).
+%         \item \textbf{estimatedtime:} Average time required to complete each activity.
+%     \end{itemize}
+% This dataset supports the system’s ability to tailor visit durations based on store requirements, leading to more accurate time estimates for each route.
+% \end{enumerate}
 
 \subsection*{Data Utilization in Rahguzar}
 
 Together, these datasets will support Rahguzar’s core functionalities, including:
 \begin{itemize}
     \item \textbf{Efficient Route Planning:} Leveraging store locations, operational statuses, and road networks for optimal routing.
-    \item \textbf{Dynamic Scheduling:} Using order booker shifts and activity requirements to generate flexible schedules aligned with store needs and workforce availability.
+    % \item \textbf{Dynamic Scheduling:} Using order booker shifts and activity requirements to generate flexible schedules aligned with store needs and workforce availability.
     \item \textbf{Traffic and Geographic Optimization:} Utilizing geographic data to plan routes that avoid congestion and optimize for specific zones or territories.
-    \item \textbf{Geographical Filtering:} Geographical and channel-based categorization from the Store Hierarchy dataset will help managers plan routes tailored to specific regions and sales priorities.
+    % \item \textbf{Geographical Filtering:} Geographical and channel-based categorization from the Store Hierarchy dataset will help managers plan routes tailored to specific regions and sales priorities.
     \item \textbf{Route Efficiency Analysis:} The Visits dataset will provide insights into average visit durations and travel times, which will inform the route optimization algorithm and support KPI tracking for system performance.
 \end{itemize}
 
-Further details and data will be incorporated as they become available from SalesFlo.
 
 \section{System Diagram}
 \begin{center}

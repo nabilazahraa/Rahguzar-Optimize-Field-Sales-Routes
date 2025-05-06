@@ -1,23 +1,4 @@
-% \section{Purpose and Scope}
-% % This Software Requirements Specification (SRS) document provides a detailed description of the functionalities, requirements, and architecture for the Route Optimization System. It will serve as a guide for the development team to build the software as per the specified requirements.
 
-% The purpose of this Software Requirements Specification (SRS) document is to outline the software and system requirements for the development of our project Rahguzar, an AI-driven route optimization system. This system aims to address inefficiencies in manual route planning within the retail and distribution sectors, improving operational efficiency and reducing environmental impacts. 
-
-% This document covers both the functional requirements, describing what the system should do, along with the non-functional requirements specifying the system’s performance, scalability, and usability criteria. Moreover, the document includes system block diagrams to visualize system interactions, use cases, and external interfaces, giving a clear and precise idea of the system design and development. 
-
-
-% \section{Feedback from Presentation}
-% % Based on the feedback received during the presentation, additional features like user-friendly mobile compatibility and scalability for larger data volumes were incorporated.
-% The feedback received after the proposal presentation to us is summarized below: 
-
-% \begin{itemize}
-%     \item \textbf{Expand Literature Review:} Include both AI and non-AI solutions in the literature review to focus on best practices and successful case studies in route optimization. Non-AI methods such as mathematical models and heuristic methods need to be explored.
-
-%     \item \textbf{Clear Parameter Identification:} Clearly define key route optimization parameters, including distance, time windows, traffic, and scalability metrics, for precise algorithm development and performance evaluation.
-
-%     \item \textbf{Gantt Chart Agility: }Suggested discussing potential challenges and making the Gantt chart more agile.
-
-% \end{itemize}
 
 
 \section{Problem Statement}
@@ -51,16 +32,7 @@ This section outlines the target users of Rahguzar, detailing the different type
 
          \item \textbf{Managers:} Managers are the primary users of the system, responsible for creating, adjusting, and scheduling optimized journey plans for field representatives. They will interact with the platform through a user-friendly map interface to design, visualize, and modify routes. The system allows managers to generate daily, weekly, or monthly plans, adapt to specific business constraints, and ensure operational efficiency.
          \item \textbf{Field Representatives:} While field representatives, such as sales executives and order bookers, do not directly interact with the system, they are key beneficiaries of its outputs. They rely on the optimized journey plans created by managers to execute their tasks efficiently in the field, ensuring consistent and effective service to stores.
-% The primary users of Rahguzar include:
 
-% \begin{itemize}
-
-%     \item \textbf{Managers:} Responsible for creating, adjusting, and scheduling optimized routes for field representatives. They use the system’s map interface to create, visualize and fine-tune routes as needed. They can create these routes based on a daily, weekly, or a monthly basis.
-
-%     % \item \textbf{Field Representatives:} Sales representatives, order bookers, and other field staff who receive pre-defined routes and visit the set of locations assigned to them.
-
-%     % \item \textbf{Admin/IT Personnel:} Oversee system management, manage user accounts, and ensure data security and system integrity.
-    
 \end{itemize}
 
 
@@ -93,9 +65,29 @@ Deliverables for Kaavish II:
     \end{figure}
 \end{center}
 
-\section{Key Challenges}
+% \section{Key Challenges Encountered}
 
-Key challenges anticipated in our project will include:
+% \begin{itemize}
+%     \item \textbf{Data Complexity and Integration:} Managing and integrating diverse datasets, including store profiles, geographic coordinates, and visit schedules, introduced complexity, especially when reconciling inconsistent formats and missing fields. \\
+%     \textbf{Solution:} Utilize specialized data validation and transformation pipelines with Pandas and SQLAlchemy to enforce schema consistency, and incorporate early-stage data sanity checks during optimization preprocessing.
+
+%     \item \textbf{Migration to AWS EC2:} Deploying all services (React frontend, Flask backend, Dockerized OSRM) on a single \texttt{t3.medium} EC2 instance required careful configuration of ports, firewalls, and service dependencies. Limited memory and CPU resources posed performance constraints under simultaneous loads. \\
+%     \textbf{Solution:} Consolidate services through environment-based process management (e.g., Nginx + Gunicorn + Docker), configure appropriate systemd services, and optimize backend logic for memory-efficient route computation.
+
+%     \item \textbf{Real-World Road Distance Integration:} Incorporating accurate road-based routing using OSRM required downloading and preprocessing OpenStreetMap (OSM) data, adapting coordinate formats, and ensuring routing latency was minimal in real time. \\
+%     \textbf{Solution:} Host OSRM as a local Docker container within the EC2 instance, cache route queries where possible, and use GeoJSON-compatible formats to streamline frontend visualization via Leaflet.
+
+%     \item \textbf{Frontend-Backend Route Synchronization:} Ensuring that OSRM-generated routes correctly reflected on the Leaflet map and aligned with the optimization logic was challenging, especially during cluster reassignments or manual rerouting. \\
+%     \textbf{Solution:} Standardize route data in GeoJSON format across all modules and implement unified state handling in the React frontend to keep route overlays in sync with backend updates.
+
+%     \item \textbf{Database Security and Migration:} Migrating from a local PostgreSQL database to Amazon RDS required secure credential management, reconfiguring environment variables, and restricting access through AWS security groups. \\
+%     \textbf{Solution:} Use environment-based secrets management, configure RDS to allow connections only from the EC2 instance, and monitor query performance through AWS CloudWatch for optimization bottlenecks.
+% \end{itemize}
+
+
+\section{Key Challenges}
+This section outlines the major technical and operational challenges we anticipated at the beginning of the project, along with initial strategies considered to address them. A reflection on the challenges actually encountered is presented in later chapters.
+
 
 \begin{itemize}
     \item \textbf{Data Complexity and Integration:} Managing and integrating diverse datasets, including store profiles, geographic data, and workforce schedules, presents significant complexity, particularly in reconciling inconsistencies and ensuring data accuracy. \\

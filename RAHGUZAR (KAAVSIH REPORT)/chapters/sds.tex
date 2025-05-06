@@ -1,5 +1,4 @@
-
-This chapter provides important artifacts related to design of our project. It includes the Software and Data design of our project.
+The Software Design Specifications outlines the key design components of the Rahguzar system, including its software architecture, database schema, and core optimization logic.
 
 \section{Software Design}
 
@@ -34,22 +33,35 @@ This section presents the structure of our database that caters to persistent da
 \end{figure}
 
  
+% \section{Technical Details}
+
+% As shown above, our project includes an ERD created based on the cleaned data. Additionally, following are the technical aspects of the algorithm (Evolutionary Algorithm).
+% \\
+% The primary objectives of our algorithm are:
+% \begin{itemize}
+%     \item Maximizing the number of shops visited within the constraints.
+%     \item Minimizing the total distance traveled to improve route efficiency.
+%     \item Minimizing overall time spent, which includes travel and time spent at each store.
+% \end{itemize}
+
+% The constraints of our algorithm are:
+% \begin{itemize}
+%     \item \textbf{Number of order bookers}: Determines the workload distribution and affects route planning.
+%     \item \textbf{Shift times}: Incorporates break times, holidays, and working hours.
+%     \item \textbf{Duration at each store}: This is a fixed value for each visit and must be accounted for in total route time.
+% \end{itemize}
+% These objectives and constraints guide the design and functionality of our route optimization algorithm. The algorithm dynamically adapts to these parameters to give optimal route plans.
+
 \section{Technical Details}
 
-As shown above, our project includes an ERD created based on the cleaned data. Additionally, following are the technical aspects of the algorithm (Evolutionary Algorithm) utilized so far.
-\\
-The primary objectives of our algorithm are:
-\begin{itemize}
-    \item Maximizing the number of shops visited within the constraints.
-    \item Minimizing the total distance traveled to improve route efficiency.
-    \item Minimizing overall time spent, which includes travel and time spent at each store.
-\end{itemize}
+The Rahguzar system uses a multi-stage route optimization algorithm composed of clustering, scheduling, and routing. This pipeline ensures operational efficiency while adhering to business constraints such as working hours, visit frequencies, and travel limits.
 
-The constraints of our algorithm are:
 \begin{itemize}
-    \item \textbf{Number of order bookers}: Determines the workload distribution and affects route planning.
-    \item \textbf{Shift times}: Incorporates break times, holidays, and working hours.
-    \item \textbf{Duration at each store}: This is a fixed value for each visit and must be accounted for in total route time.
-    \item \textbf{Store priority}: A priority metric for stores, which could be calculated based on sales data.
+    \item \textbf{Clustering:} Stores are grouped based on geographic proximity using density- or centroid-based clustering.
+    \item \textbf{Scheduling:} An Evolutionary Algorithm assigns stores to order bookers across a multi-day plan, optimizing workload balance and visit coverage.
+    \item \textbf{Routing:} Store sequences are optimized using road-based routing with OSRM, minimizing total travel time and distance.
 \end{itemize}
-These objectives and constraints guide the design and functionality of our route optimization algorithm. The algorithm dynamically adapts to these parameters to give optimal route plans.
+The algorithm aims to maximize shop visits, minimize total distance traveled, and reduce overall time, including both travel and in-store duration. It operates under key constraints such as the number of order bookers, shift timings, and fixed visit durations per store, ensuring realistic and efficient route plans.
+
+
+The system supports dynamic rerouting, manual overrides, and constraint-based optimization to remain adaptive to real-world field operations. Full methodological details including algorithmic structure, fitness design, and tuning are provided in the Methodology section.
