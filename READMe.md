@@ -25,6 +25,7 @@ Traditional PJP planning methods often result in:
 ---
 
 ### Web Application
+
 ![Home](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/StartScreen.png)
 ![Route Planning Interface](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/Map.png)
 ![Configurations](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/Configure.png)
