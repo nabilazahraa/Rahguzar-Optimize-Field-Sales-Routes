@@ -1,4 +1,4 @@
-This chapter aims to present the results of experiments conducted across Rahguzar’s clustering, scheduling, and routing phases to evaluate their impact on route optimization, workload balancing, and service coverage. Each algorithm was tested individually and as part of the integrated pipeline. Additionally, Rahguzar’s performance was benchmarked against Salesflo using real distributor datasets, comparing outcomes in terms of total travel distance, execution time, and overall planning efficiency.
+This chapter aims to present the results of the experiments conducted across Rahguzar’s clustering, scheduling, and routing phases to evaluate their impact on route optimization, workload balancing, and service coverage. Each algorithm was tested individually and as part of the integrated pipeline. Additionally, Rahguzar’s performance was benchmarked against Salesflo using real distributor datasets, comparing outcomes in terms of total travel distance, execution time, and overall planning efficiency.
 
 \section{Algorithmic Phases and Experiment Results}
 
@@ -276,6 +276,20 @@ To illustrate overall performance across all scenarios:
 
 Across all test cases, Rahguzar reduced the cumulative travel distance by \textbf{540.79 km} and time by \textbf{5.41 hours}, validating its effectiveness in optimizing field operations.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/distance_rahgyzar_salesflo_comp}
+    \caption{Total distance comparision for the test distributors.}
+    \label{fig:results_distance_comparision}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/time_rahgyzar_salesflo_comp}
+    \caption{Total time comparision for the test distributors}
+    \label{fig:results_time_comparision}
+\end{figure}
 
 \section{Conclusion}
 Based on the results of the experiments, the Evolutionary Algorithm (EA) consistently demonstrated strong performance in the scheduling phase, effectively balancing workloads and meeting visit constraints across varying distributor profiles. For route optimization, Google OR-Tools emerged as the most robust and scalable solution, outperforming other algorithms—including ACO and PSO—particularly in large-scale and constraint-heavy scenarios.
