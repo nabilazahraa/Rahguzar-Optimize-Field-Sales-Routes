@@ -27,11 +27,10 @@
 *~
 *.tmp
 
-# PDF and output files (optional, if you want to keep them ignored)
 # *.pdf
 *.ps
 
-# Specific editor or build tool files (if applicable)
+# Specific editor or build tool files 
 *.swp        # Vim swap files
 *.DS_Store   # macOS Finder files
 Thumbs.db    # Windows Explorer files
@@ -42,3 +41,4 @@ Thumbs.db    # Windows Explorer files
 **node_modules/
 
 **/build/
+**report.aux

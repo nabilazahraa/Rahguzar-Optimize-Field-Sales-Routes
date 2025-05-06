@@ -1,4 +1,7 @@
+
 # Rahguzar: Optimizing Field Sales Routes
+
+> This project is part of the **Final Year Project (Kaavish)** at **Habib University**, completed by students of the Dhanani School of Science and Engineering, Spring 2025.
 
 **Rahguzar** is an intelligent, web-based platform that automates the creation of Permanent Journey Plans (PJPs) for field sales teams in the FMCG sector. It uses a hybrid algorithmic pipeline combining clustering, evolutionary scheduling, and real-road route optimization to generate efficient and balanced journey plans.
 
