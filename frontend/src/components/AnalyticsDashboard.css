@@ -1,0 +1,484 @@
+/* Updated styles for AnalyticsDashboard.css */
+
+.dashboard-container {
+  padding: 0.5rem;
+  /* 24px */
+  background: #f0f2f5;
+  min-height: 80vh;
+}
+
+/* KPI Row */
+.kpi-row {
+  margin-bottom: 1.5rem;
+  /* 24px */
+}
+
+/* KPI Row */
+.statistic-title {
+  font-size: 1.2rem;
+  /* 19.2px, unchanged */
+  font-weight: bold;
+  text-align: center;
+  color: #161181;
+  /* Blue color for KPI titles */
+}
+.statistic-value {
+  font-size: 0.9rem !important;
+
+  font-weight: bold;
+  text-align: center;
+  /* display: block; */
+  margin: 0 auto;
+  color: #000000;
+  /* Black color for KPI values */
+}
+
+/* Filter Row Titles */
+.filter-title {
+  font-size: 1.125rem;
+  /* 18px */
+  font-weight: bold;
+  text-align: right;
+  /* Already right-aligned, ensure no override */
+  color: #161181;
+  /* Blue color for filter titles */
+  display: block;
+  /* Ensure it behaves as a block for consistent alignment */
+  width: 100%;
+  /* Force full width to align text properly */
+}
+/* Dropdown Items and Selected Item */
+.ant-select-item-option-content {
+  color: #161181;
+  /* Blue color for dropdown options */
+  font-weight: normal;
+  /* Not bold */
+}
+
+.ant-select-selection-item {
+  color: #161181;
+  /* Blue color for selected item in dropdown */
+  font-weight: normal;
+  /* Not bold */
+}
+
+/* Middle Row */
+.middle-row {
+  margin-bottom: 1.5rem;
+  /* 24px */
+}
+
+.card-title {
+  font-size: 1.3rem !important;
+  /* 20.8px */
+  font-weight: bold !important;
+  margin-top: -0.3125rem;
+  /* -5px */
+  text-align: center !important;
+  margin-bottom: 1rem;
+  color: #161181 !important;
+  /* Blue color for bar chart titles */
+}
+
+.average-value {
+  margin-top: -0.625rem;
+  /* -10px */
+  font-size: 1.1rem !important;
+  /* 17.6px */
+}
+
+.difference-value {
+  font-size: 1.1rem;
+  /* 17.6px */
+  margin-bottom: 0.5rem;
+  /* 8px */
+  color: #000000;
+  /* Black color for difference values by default */
+}
+
+.difference-value.positive {
+  color: #3f8600;
+  /* Green for positive */
+}
+
+.difference-value.negative {
+  color: #ff4d4f;
+  /* Red for negative */
+}
+
+.date-range {
+  font-size: 0.85rem;
+  /* 13.6px */
+  margin-bottom: 1rem;
+  /* 16px */
+}
+
+.pie-chart-container {
+  height: 33rem;
+  /* 505px */
+  margin-top: -0.3125rem;
+  /* -5px */
+}
+
+/* Middle Row */
+.date-info {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 1.1rem;
+  /* Reduced from 1.25rem to 13.6px */
+}
+
+/* Bar Chart Styles */
+.bar-chart-container,
+.interactive-line-chart {
+  height: 300px !important;
+  overflow: hidden;
+}
+
+.bar-chart-container canvas,
+.interactive-line-chart canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.middle-row .ant-card,
+.bottom-row .ant-card {
+  padding: 12px;
+}
+
+.middle-row .ant-card-body,
+.bottom-row .ant-card-body {
+  padding: 12px;
+}
+
+.middle-row .bar-chart-container,
+.bottom-row .bar-chart-container,
+.middle-row .interactive-line-chart,
+.bottom-row .interactive-line-chart {
+  height: 200px !important;
+  /* Override default 25rem */
+}
+
+.bar-chart-container {
+  width: 100%;
+  height: 25rem;
+  /* Default height */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1450px) {
+  .pie-chart-container {
+    height: 28rem;
+    /* 400px */
+    overflow: visible;
+  }
+}
+
+@media (max-width: 1200px) {
+  .card-title {
+    font-size: 1.5rem;
+    /* 24px */
+  }
+
+  .average-value {
+    font-size: 1.25rem;
+    /* 20px */
+  }
+
+  .difference-value {
+    font-size: 1.125rem;
+    /* 18px */
+  }
+
+  .date-range,
+  .date-info {
+    font-size: 1.125rem;
+    /* 18px */
+  }
+
+  .pie-chart-container {
+    height: 25rem;
+    /* 400px */
+    overflow: visible;
+  }
+
+  .bar-chart-container {
+    height: 25rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .card-title {
+    font-size: 1.25rem;
+    /* 20px */
+  }
+
+  .average-value {
+    font-size: 1.125rem;
+    /* 18px */
+  }
+
+  .difference-value {
+    font-size: 1rem;
+    /* 16px */
+  }
+
+  .date-range,
+  .date-info {
+    font-size: 1rem;
+    /* 16px */
+  }
+
+  .pie-chart-container {
+    height: 35rem;
+    /* 320px */
+  }
+
+  .bar-chart-container {
+    height: 20rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 1.125rem;
+    /* 18px */
+  }
+
+  .average-value {
+    font-size: 1rem;
+    /* 16px */
+  }
+
+  .difference-value {
+    font-size: 0.875rem;
+    /* 14px */
+  }
+
+  .date-range,
+  .date-info {
+    font-size: 0.875rem;
+    /* 14px */
+  }
+
+  .pie-chart-container {
+    height: 25rem;
+    /* 240px */
+  }
+
+  .bar-chart-container {
+    height: 15rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-title {
+    font-size: 1rem;
+    /* 16px */
+  }
+
+  .average-value {
+    font-size: 0.875rem;
+    /* 14px */
+  }
+
+  .difference-value {
+    font-size: 0.75rem;
+    /* 12px */
+  }
+
+  .date-range,
+  .date-info {
+    font-size: 0.75rem;
+    /* 12px */
+  }
+
+  .pie-chart-container {
+    height: 30rem;
+    /* 192px */
+  }
+
+  .bar-chart-container {
+    height: 12rem;
+  }
+}
+
+/* Ensure cards in a row have the same height */
+.ant-row>.ant-col>.ant-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-row>.ant-col>.ant-card>.ant-card-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Selected Options Container */
+.selected-options-container {
+  margin-bottom: 1.5rem; /* Matches kpi-row and middle-row spacing */
+}
+
+/* Selected Options Title */
+.selected-options-title {
+  font-size: 1.125rem; /* Matches filter-title (18px) */
+  font-weight: bold; /* Matches filter-title */
+  text-align: right; /* Matches filter-title */
+  color: #161181; /* Matches filter-title blue color */
+  display: block; /* Matches filter-title */
+  width: 100%; /* Matches filter-title */
+}
+
+/* Selected Options Content */
+.selected-options-content {
+  margin-left: 8px; /* Consistent spacing from title */
+  font-size: 16px; /* Matches dropdown selection font-size */
+  color: #161181; /* Matches ant-select-selection-item blue color */
+  font-weight: normal; /* Matches ant-select-selection-item */
+}
+
+/* Responsive Adjustments for Selected Options */
+@media (max-width: 1200px) {
+  .selected-options-title {
+    font-size: 1rem; /* Slightly smaller for medium screens */
+  }
+  .selected-options-content {
+    font-size: 14px; /* Adjust for readability */
+  }
+}
+
+@media (max-width: 768px) {
+  .selected-options-title {
+    font-size: 0.875rem; /* Matches smaller filter-title adjustments */
+    text-align: left; /* Stack vertically on small screens */
+  }
+  .selected-options-content {
+    font-size: 12px;
+    display: block; /* Stack below title */
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .selected-options-title {
+    font-size: 0.75rem; /* Matches smallest filter-title */
+  }
+  .selected-options-content {
+    font-size: 11px;
+  }
+}
+
+/* Selected Options Container */
+.selected-options-container {
+  margin-bottom: 1rem;
+  /* Reduced from 1.5rem for compactness */
+}
+
+/* Selected Options Header */
+.selected-options-header {
+  font-size: 1.2rem;
+  /* Reduced from 1.3rem */
+  font-weight: bold;
+  text-align: center;
+  color: #161181;
+  display: block;
+  margin-bottom: 8px;
+  margin-left: -20px;
+  /* Reduced from 16px */
+}
+
+/* Selected Options Field (Container for Title + Content) */
+.selected-options-field {
+  display: flex;
+  align-items: center;
+  /* Vertically center title and content */
+  /* flex-wrap: nowrap; */
+  /* Prevent wrapping within the field */
+  margin-right: 16px;
+  /* Space between the two fields */
+}
+
+/* Selected Options Title */
+.selected-options-title {
+  font-size: 1.1rem;
+  /* Reduced from 1.125rem */
+  font-weight: bold;
+  text-align: center;
+  color: #161181;
+  margin-right: 4px;
+  /* Reduced from 8px */
+  white-space: nowrap;
+}
+
+/* Selected Options Content */
+.selected-options-content {
+  font-size: 1.1rem;
+  /* Reduced from 16px */
+  color: #161181;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+/* Responsive Adjustments for Selected Options */
+@media (max-width: 1200px) {
+  .selected-options-header {
+    font-size: 1rem;
+  }
+
+  .selected-options-title {
+    font-size: 0.85rem;
+  }
+
+  .selected-options-content {
+    font-size: 0.85rem;
+  }
+
+  .selected-options-field {
+    margin-right: 12px;
+    /* Slightly less gap */
+  }
+}
+
+@media (max-width: 768px) {
+  .selected-options-header {
+    font-size: 0.95rem;
+  }
+
+  .selected-options-field {
+    flex-direction: column;
+    /* Stack vertically */
+    align-items: flex-start;
+    margin-right: 0;
+    /* Remove gap when stacked */
+    margin-bottom: 8px;
+    /* Space between stacked fields */
+  }
+
+  .selected-options-title {
+    font-size: 0.8rem;
+    text-align: left;
+    margin-right: 0;
+    margin-bottom: 2px;
+    /* Reduced from 4px */
+  }
+
+  .selected-options-content {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .selected-options-header {
+    font-size: 0.9rem;
+  }
+
+  .selected-options-title {
+    font-size: 0.75rem;
+  }
+
+  .selected-options-content {
+    font-size: 0.75rem;
+  }
+}

@@ -1,0 +1,18 @@
+[
+    {
+        "Region": "North-East",
+        "Value_Percent": 54.84
+    },
+    {
+        "Region": "North-West",
+        "Value_Percent": 13.38
+    },
+    {
+        "Region": "South-East",
+        "Value_Percent": 2.13
+    },
+    {
+        "Region": "South-West",
+        "Value_Percent": 29.65
+    }
+]

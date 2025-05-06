@@ -36,3 +36,9 @@
 *.DS_Store   # macOS Finder files
 Thumbs.db    # Windows Explorer files
 *.DS_Store
+
+**/__pycache__/
+**/route_cache/
+**node_modules/
+
+**/build/

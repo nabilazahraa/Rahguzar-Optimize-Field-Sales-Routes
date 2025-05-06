@@ -1,0 +1,21 @@
+/* src/index.css or src/components/ResultsView.css */
+
+/* Print Styles */
+@media print {
+    body * {
+      visibility: hidden;
+      overflow: hidden;
+    }
+  
+    #printable, #printable * {
+      visibility: visible;
+    }
+  
+    #printable {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+  
