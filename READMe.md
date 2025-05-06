@@ -24,6 +24,18 @@ Traditional PJP planning methods often result in:
 
 ---
 
+### Web Application
+![Home](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/StartScreen.png)
+![Route Planning Interface](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/Map.png)
+![Configurations](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/Configure.png)
+![Configurations](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/plan.png)
+![Configurations](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/Cluster map.png)
+![Store Management](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/stores.png)
+
+![Performance Dashboard](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/dashboard.png)
+
+---
+
 ## 🔧 Key Features
 
 - **Three-Phase Optimization**: Clustering → Scheduling → Routing
@@ -68,15 +80,7 @@ docker run -t -i -p 5002:5000 osrm/osrm-backend osrm-routed /data/map.osrm
 ### 4. PostgreSQL (RDS or Local)
 Use schema.sql to initialize database tables.
 
-### Web Application
-![Home](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/StartScreen.png)
-![Route Planning Interface](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/Map.png)
-![Configurations](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/Configure.png)
-![Configurations](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/plan.png)
-![Configurations](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/Cluster map.png)
-![Store Management](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/stores.png)
-
-![Performance Dashboard](/RAHGUZAR%20(KAAVSIH%20REPORT)/images/dashboard.png)
+---
 
 ## 🧠 Tech Stack
 
@@ -102,6 +106,6 @@ Use schema.sql to initialize database tables.
 
 Special thanks to:
 
-- **Dr. Syeda Saleha Raza** – Faculty Mentor, Habib University  
+- **Syeda Saleha Raza** – Faculty Mentor, Habib University  
 - **Fatima Alvi** – Industry Mentor, SalesFlo Pvt Ltd  
 - **SalesFlo Pvt Ltd** – Dataset and domain guidance  
