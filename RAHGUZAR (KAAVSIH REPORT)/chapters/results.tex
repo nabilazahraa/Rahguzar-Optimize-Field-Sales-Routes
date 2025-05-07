@@ -11,11 +11,11 @@ This section presents the methodology and results from a series of experiments c
 % Phase 1 content to be added later.
 The first aim of the algorithm is to divide the list of stores to be serviced into a number of clusters which is determined by the number of orderbookers.
 The objective is to group close stores in the same cluster, so that the orderbookers can service them as the scheduler will decide.
-To achieve this, clustering algorithms were tested on their own adn in a hybrid approach.
+To achieve this, the following clustering algorithms were tested on their own adn in a hybrid approach:
 
-\subsubsection{Clustering Algorithms Tested}
+% \subsubsection{Clustering Algorithms Tested}
 
-The following clustering algorithms were evaluated for grouping stores among orderbookers based on geographical proximity and workload balancing:
+% The following clustering algorithms were evaluated for grouping stores among orderbookers based on geographical proximity and workload balancing:
 
 \begin{itemize}
     \item \textbf{KMeans Clustering}  
@@ -44,7 +44,54 @@ Moreover, to ensure that optimal clusters were being made, cluster balancing was
 stores between clusters to ensure workloads—based on service effort and travel time—are roughly equal.
  Overloaded clusters transfer nearby stores to underloaded ones, and this process repeats until workloads fall within a set tolerance or a maximum number of iterations is reached, promoting fair and efficient distribution.
 
-\subsection{Phase 1: Experiments Results}
+% \subsection{Phase 2: Scheduling with Evolutionary Algorithm (EA)} %
+% Once clusters have been formed in Phase 1, the next critical step is to generate a feasible schedule that defines which shops should be visited on each day of the planning period (either a single day or a custom range, as selected by the user). The primary objective during scheduling is to balance the workload across both the available days and all assigned orderbookers. This ensures that no orderbooker is disproportionately burdened and that their daily tasks are distributed as evenly as possible.
+
+% To identify the most effective scheduling strategy, a series of experiments were conducted using various algorithms. Each algorithm was evaluated based on its ability to generate balanced, constraint-compliant schedules. At the core of this evaluation process is the fitness function.
+
+% The fitness function plays a vital role in determining how practical and efficient a schedule is. It computes a cost value for each candidate schedule—lower values indicate better solutions. Hard constraints are applied first: for example, if the total route time on any day exceeds a predefined daily limit (e.g., 480 minutes), a substantial penalty is applied to immediately discourage infeasible schedules. It also checks for visit mismatches—stores not visited the required number of times—penalizing any deviations.
+
+% Additionally, soft constraints are incorporated to further refine the schedule. These include a day-balancing penalty when daily route times fall outside the ideal range (e.g., 360–420 minutes), and a geographical penalty when neighboring stores requiring only one visit are assigned to different days. These constraints collectively guide the algorithm toward generating schedules that are not only valid but also optimized for balance, practicality, and real-world efficiency. The following scheduling algorithms were used:
+
+% \begin{itemize}
+%     \item Simulated Annealing
+%     \item Ant Colony Optimization (ACO)
+%     \item Mixed Integer Linear Programming (MILP)
+%     \item Evolutionary Algorithm (EA)
+% \end{itemize}
+
+% Through a series of experiments, the best combination for the scheduling phase was determined, which was Evolutionary Algorithm (EA) for scheduling.
+% Algorithms like ACO showed that the in serach for the optimal schedule, it can often get trapped in a local optima. For MILP and simulated annealing, 
+% generating a schedule can be computationally expensive and time consuming. On the other hand, EA showed optmial results with genetic diversity maintained that
+% avoids premature convergence, hence EA is the best choice for scheduling.
+
+% \subsection{Phase 3: Route Optimization}
+% After a schedule has been created, the next step is to optimize the routes for each orderbooker. This involves determining the most efficient path for each orderbooker to follow, ensuring that they can visit all assigned stores in the shortest possible time while adhering to any constraints (e.g., time windows, vehicle capacity). The goal is to minimize travel distance and time while maximizing efficiency. This phase is crucial for ensuring that the orderbookers can complete their routes within the allocated time and resources, ultimately leading to improved service levels and reduced operational costs.
+
+% Moreover, it helps determine the order of visiting the stores and the best route to take, considering factors such as road networks and other logistical constraints. For route optimization, several algorithms were tested to identify the most effective one. The route optimization algorithms evaluated were:
+
+% \begin{itemize}
+%     \item Particle Swarm Optimization (PSO)
+%     \item Ant Colony Optimization (ACO)
+%     \item Google Optimization Tools (OR-Tools)
+%     \item Evolutionary Algorithm (EA)
+%     \item Dynamic Programming
+% \end{itemize}
+
+% Among the tested route optimization algorithms, Google OR-Tools showed the most consistent and optimal performance in minimizing total travel distance and time. While ACO and PSO showed promise in smaller test cases, they frequently got trapped in local optima or exhibited longer computation times in large-scale datasets. OR-Tools, by contrast, delivered high-quality solutions across varying distributor profiles and constraints, making it the most robust choice for route optimization within Rahguzar's pipeline.
+
+\subsection{Phase 2 & 3: Scheduling and Route Optimization}
+Once clusters are formed, the next step is to assign store visits across the planning period and determine the optimal routes for each orderbooker. This phase ensures balanced workloads, constraint-compliant schedules, and efficient travel routes that minimize operational costs.
+
+To generate daily schedules, multiple scheduling algorithms were tested including Simulated Annealing, Ant Colony Optimization (ACO), Mixed Integer Linear Programming (MILP), and Evolutionary Algorithm (EA). EA emerged as the most effective method due to its ability to maintain genetic diversity, avoid premature convergence, and produce feasible schedules efficiently. The evaluation was driven by a fitness function that penalized violations of hard constraints (e.g., exceeding daily time limits, visit mismatches) and soft constraints (e.g., unbalanced workdays, geographically scattered visits).
+
+Once a valid schedule is generated, the route for each day is optimized to minimize total travel distance and time. Algorithms such as Particle Swarm Optimization (PSO), ACO, Dynamic Programming, and Google OR-Tools were evaluated. OR-Tools delivered the most consistent and scalable results across distributors, outperforming others in both accuracy and runtime efficiency.
+
+Thus, Rahguzar uses a hybrid pipeline where Evolutionary Algorithms handle scheduling and Google OR-Tools manages route optimization, achieving a practical balance between workload distribution, feasibility, and travel efficiency.
+
+\subsection{Experiments and Results}
+The following sections detail the experiments conducted to evaluate the performance of the clustering, scheduling, and routing algorithms. The results are presented in terms of silhouette scores for clustering and total distance traveled from each algorithm combination.
+\subsubsection{Phase 1: Clustering}
 The silhouette score measures how well points are grouped in a clustering task. It checks if points are close to others in their own cluster, indicating a good score, or if they are far from points in other clusters (also good score). The score ranges from -1 to 1, where 1 means perfect clusters, 0 means overlap, and negative scores indicate that points might be in the wrong cluster.
 
 \begin{table}[H]
@@ -84,46 +131,8 @@ From the results in Table~\ref{tab:silhouette_scores}, it can be observed that t
 
 Figures~\ref{fig:hybrid1_workload} and~\ref{fig:hybrid2_workload} present a visual comparison of workload distribution across clusters for the two hybrid approaches. While Hybrid Approach-1 shows a slightly more uniform distribution of workload, we ultimately prefer Hybrid Approach-2. The reason is that, despite the marginally greater variance in workload, it achieves significantly better geographical compactness—an important factor reflected in the higher silhouette scores. Prioritizing geographic proximity helps ensure route optimization and operational feasibility, which outweighs the minor imbalance in workload.
 
-\subsection{Phase 2: Scheduling with Evolutionary Algorithm (EA)} %
-Once clusters have been formed in Phase 1, the next critical step is to generate a feasible schedule that defines which shops should be visited on each day of the planning period (either a single day or a custom range, as selected by the user). The primary objective during scheduling is to balance the workload across both the available days and all assigned orderbookers. This ensures that no orderbooker is disproportionately burdened and that their daily tasks are distributed as evenly as possible.
 
-To identify the most effective scheduling strategy, a series of experiments were conducted using various algorithms. Each algorithm was evaluated based on its ability to generate balanced, constraint-compliant schedules. At the core of this evaluation process is the fitness function.
-
-The fitness function plays a vital role in determining how practical and efficient a schedule is. It computes a cost value for each candidate schedule—lower values indicate better solutions. Hard constraints are applied first: for example, if the total route time on any day exceeds a predefined daily limit (e.g., 480 minutes), a substantial penalty is applied to immediately discourage infeasible schedules. It also checks for visit mismatches—stores not visited the required number of times—penalizing any deviations.
-
-Additionally, soft constraints are incorporated to further refine the schedule. These include a day-balancing penalty when daily route times fall outside the ideal range (e.g., 360–420 minutes), and a geographical penalty when neighboring stores requiring only one visit are assigned to different days. These constraints collectively guide the algorithm toward generating schedules that are not only valid but also optimized for balance, practicality, and real-world efficiency. The following scheduling algorithms were used:
-
-\begin{itemize}
-    \item Simulated Annealing
-    \item Ant Colony Optimization (ACO)
-    \item Mixed Integer Linear Programming (MILP)
-    \item Evolutionary Algorithm (EA)
-\end{itemize}
-
-Through a series of experiments, the best combination for the scheduling phase was determined, which was Evolutionary Algorithm (EA) for scheduling.
-Algorithms like ACO showed that the in serach for the optimal schedule, it can often get trapped in a local optima. For MILP and simulated annealing, 
-generating a schedule can be computationally expensive and time consuming. On the other hand, EA showed optmial results with genetic diversity maintained that
-avoids premature convergence, hence EA is the best choice for scheduling.
-
-\subsection{Phase 3: Route Optimization}
-After a schedule has been created, the next step is to optimize the routes for each orderbooker. This involves determining the most efficient path for each orderbooker to follow, ensuring that they can visit all assigned stores in the shortest possible time while adhering to any constraints (e.g., time windows, vehicle capacity). The goal is to minimize travel distance and time while maximizing efficiency. This phase is crucial for ensuring that the orderbookers can complete their routes within the allocated time and resources, ultimately leading to improved service levels and reduced operational costs.
-
-Moreover, it helps determine the order of visiting the stores and the best route to take, considering factors such as road networks and other logistical constraints. For route optimization, several algorithms were tested to identify the most effective one. The route optimization algorithms evaluated were:
-
-\begin{itemize}
-    \item Particle Swarm Optimization (PSO)
-    \item Ant Colony Optimization (ACO)
-    \item Google Optimization Tools (OR-Tools)
-    \item Evolutionary Algorithm (EA)
-    \item Dynamic Programming
-\end{itemize}
-
-Among the tested route optimization algorithms, Google OR-Tools showed the most consistent and optimal performance in minimizing total travel distance and time. While ACO and PSO showed promise in smaller test cases, they frequently got trapped in local optima or exhibited longer computation times in large-scale datasets. OR-Tools, by contrast, delivered high-quality solutions across varying distributor profiles and constraints, making it the most robust choice for route optimization within Rahguzar's pipeline.
-
-
-
-
-\subsection{Phase 2 and 3: Experiments Overview}
+\subsubsection{Phase 2 and 3: Scheduling and Route Optimization}
 A series of experiments were conducted across different distributors with varying numbers of stores and orderbookers. The following distributors were involved in the experiments:
 \begin{table}[h!]
 \centering
@@ -162,8 +171,8 @@ to as less as 150 km in 0.2 hours, as compared to almost 500 kms and 1 hour for 
 and MILP and simulated annealing schedulers.
 
 
-\subsection{Phase 2 and 3: Experiment Results}
-The experiments were conducted by combining different scheduling algorithms with different route optimization algorithms. The findings of each graph is summarized below.
+% \subsection{Phase 2 and 3: Experiment Results}
+% The experiments were conducted by combining different scheduling algorithms with different route optimization algorithms. The findings of each graph is summarized below.
 
 
 
