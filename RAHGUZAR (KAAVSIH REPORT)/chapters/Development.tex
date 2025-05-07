@@ -10,16 +10,16 @@ Throughout development, emphasis was placed on designing clean, modular API endp
 \section{Frontend Development with React}
 The frontend was implemented using React, which offered a highly responsive and component-driven interface for interacting with Rahguzar's planning and monitoring features. React’s ability to efficiently manage state and update the DOM in real-time was crucial for building features like dynamic map rendering, drag-and-drop store reordering, and dashboard KPI tracking.
 
-The user interface included several key screens such as the sign-in and registration pages, a dashboard with route statistics, a map-based route planner, and modules for viewing stores and journeys. Special attention was given to providing managers with a seamless experience for planning, editing, and visualizing routes, supported by an interactive map.
+The user interface included several key screens such as the sign-in, a dashboard with route statistics, a map-based schedule and route planner, and modules for viewing stores and journeys. Special attention was given to providing managers with a seamless experience for planning, editing, and visualizing routes, supported by an interactive map.
 
 Frontend and backend integration was handled via asynchronous API calls using Axios. These calls ensured real-time feedback during route planning sessions, allowing users to view updated PJPs instantly after adjusting route parameters or filters.
 
 \section{Database Design and Integration}
-Initially, PostgreSQL was selected as the relational database for managing store profiles, visit logs, user data, and system configurations. The schema was normalized and designed to accommodate the system's growing need for relational queries, especially during the optimization phase where data consistency and referential integrity were crucial.
+PostgreSQL was chosen from the outset as the primary relational database to manage store profiles, visit logs, user information, and system configurations. The database schema was carefully normalized to support complex relational queries and ensure data consistency—especially critical during the optimization phase, where referential integrity and transactional reliability were essential.
 
-The data design followed an entity-relationship model, with core tables representing stores, visits, routes, and users. Each route was linked to a cluster of stores and assigned to specific order bookers based on availability and priority. Visit records captured timestamps, sync states, and performance metrics for later analysis.
+The design followed an entity-relationship model, with core tables representing entities such as stores, visits, routes, and users. Each route entry was linked to a cluster of stores and assigned to a specific order booker based on priority and availability. Visit records captured detailed metadata including timestamps, sync states, and performance metrics, supporting both real-time operations and historical analysis.
 
-During development, we encountered limitations with local hosting, especially as the dataset size and user load increased. This led to the decision to migrate the database to a cloud-hosted environment.
+From the beginning, the system architecture accounted for future scaling needs. While local hosting was used during early development, migrating the PostgreSQL database to a cloud environment was always part of the deployment roadmap. This foresight allowed us to choose a relational database that could easily transition to cloud services without significant rework.
 
 \section{Migration to AWS and Cloud Deployment}
 
