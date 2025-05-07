@@ -200,78 +200,99 @@ The best performing scheduler-route optimizer combinations for each distributor 
 \section{Results Comparison: Salesflo PJP vs Rahguzar PJP}
 
 This section presents a comparative analysis of Rahguzar's performance against Salesflo's pre-existing PJP plans across three real-world test distributors. Each distributor varied in terms of store count, OB allocation, and planning duration, allowing for a diverse evaluation of route efficiency, time optimization, and system scalability. Metrics analyzed include total distance traveled and total route time under the same operational constraints for both systems.
+\subsection{Test Distributors – Summary of Inputs}
 
-\subsection{Test Distributor 1 – Results Comparison}
-
-To evaluate Rahguzar’s performance, the first distributor involved 365 stores serviced by 2 Order Bookers (OBs) over a 3-day plan. The results are summarized below:
-
-\begin{table}[H]
-\centering
-\caption{Performance Comparison – Test Distributor 1}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
-\hline
-\textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
-\hline
-Total Shops & 365 & 365 \\
-Order Bookers & 2 & 2 \\
-Plan Duration (days) & 3 & 3 \\
-Total Distance (km) & 227.87 & 218.77 \\
-Total Time (hrs) & 35.53 & 35.39 \\
-\hline
-\end{tabular}
-\label{tab:dist1_comparison}
-\end{table}
-
-Rahguzar reduced the total travel distance by \textbf{9.1 km} and total time by \textbf{0.14 hours}, reflecting modest spatial and temporal efficiency.
-
-\subsection{Test Distributor 2 – Results Comparison}
-
-The second distributor included 1153 stores and 3 OBs over a 6-day schedule:
+To evaluate Rahguzar’s performance and scalability, tests were conducted on three distributors of varying sizes and complexities. Each test case involved a different number of stores, order bookers (OBs), and planning days. The details are summarized below:
 
 \begin{table}[H]
 \centering
-\caption{Performance Comparison – Test Distributor 2}
+\caption{Distributor Test Case Overview}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
+\begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
 \hline
-\textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
+\textbf{Distributor} & \textbf{Total Stores} & \textbf{Order Bookers} & \textbf{Plan Duration (days)} \\
 \hline
-Total Shops & 1153 & 1153 \\
-Order Bookers & 3 & 3 \\
-Plan Duration (days) & 6 & 6 \\
-Total Distance (km) & 929.25 & 545.01 \\
-Total Time (hrs) & 113.77 & 108.54 \\
+Distributor 1 & 365 & 2 & 3 \\
+Distributor 2 & 1153 & 3 & 6 \\
+Distributor 3 & 659 & 2 & 6 \\
 \hline
 \end{tabular}
-\label{tab:dist2_comparison}
+\label{tab:distributor_summary}
 \end{table}
 
-Rahguzar achieved a reduction of \textbf{384.24 km} in distance and \textbf{5.23 hours} in time, demonstrating high scalability and optimization capability.
+This table provides a consolidated view of the test setups used to benchmark Rahguzar’s planning pipeline across small, medium, and large distributor profiles.
 
-\subsection{Test Distributor 3 – Results Comparison}
+% \subsection{Test Distributor 1 – Results Comparison}
 
-This case involved 659 stores and 2 OBs, also over a 6-day cycle:
+% To evaluate Rahguzar’s performance, the first distributor involved 365 stores serviced by 2 Order Bookers (OBs) over a 3-day plan. The results are summarized below:
 
-\begin{table}[H]
-\centering
-\caption{Performance Comparison – Test Distributor 3}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
-\hline
-\textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
-\hline
-Total Shops & 659 & 659 \\
-Order Bookers & 2 & 2 \\
-Plan Duration (days) & 6 & 6 \\
-Total Distance (km) & 143.66 & 142.46 \\
-Total Time (hrs) & 58.95 & 58.99 \\
-\hline
-\end{tabular}
-\label{tab:dist3_comparison}
-\end{table}
+% \begin{table}[H]
+% \centering
+% \caption{Performance Comparison – Test Distributor 1}
+% \renewcommand{\arraystretch}{1.3}
+% \begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
+% \hline
+% \textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
+% \hline
+% Total Shops & 365 & 365 \\
+% Order Bookers & 2 & 2 \\
+% Plan Duration (days) & 3 & 3 \\
+% Total Distance (km) & 227.87 & 218.77 \\
+% Total Time (hrs) & 35.53 & 35.39 \\
+% \hline
+% \end{tabular}
+% \label{tab:dist1_comparison}
+% \end{table}
 
-Rahguzar reduced the distance by \textbf{1.2 km}, with a slight increase in time of \textbf{0.04 hours}, indicating comparable efficiency.
+% Rahguzar reduced the total travel distance by \textbf{9.1 km} and total time by \textbf{0.14 hours}, reflecting modest spatial and temporal efficiency.
+
+% \subsection{Test Distributor 2 – Results Comparison}
+
+% The second distributor included 1153 stores and 3 OBs over a 6-day schedule:
+
+% \begin{table}[H]
+% \centering
+% \caption{Performance Comparison – Test Distributor 2}
+% \renewcommand{\arraystretch}{1.3}
+% \begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
+% \hline
+% \textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
+% \hline
+% Total Shops & 1153 & 1153 \\
+% Order Bookers & 3 & 3 \\
+% Plan Duration (days) & 6 & 6 \\
+% Total Distance (km) & 929.25 & 545.01 \\
+% Total Time (hrs) & 113.77 & 108.54 \\
+% \hline
+% \end{tabular}
+% \label{tab:dist2_comparison}
+% \end{table}
+
+% Rahguzar achieved a reduction of \textbf{384.24 km} in distance and \textbf{5.23 hours} in time, demonstrating high scalability and optimization capability.
+
+% \subsection{Test Distributor 3 – Results Comparison}
+
+% This case involved 659 stores and 2 OBs, also over a 6-day cycle:
+
+% \begin{table}[H]
+% \centering
+% \caption{Performance Comparison – Test Distributor 3}
+% \renewcommand{\arraystretch}{1.3}
+% \begin{tabular}{|>{\centering\arraybackslash}p{4cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}@{\hskip 0.5cm}|>{\centering\arraybackslash}p{3.2cm}|}
+% \hline
+% \textbf{Metric} & \textbf{Salesflo} & \textbf{Rahguzar} \\
+% \hline
+% Total Shops & 659 & 659 \\
+% Order Bookers & 2 & 2 \\
+% Plan Duration (days) & 6 & 6 \\
+% Total Distance (km) & 143.66 & 142.46 \\
+% Total Time (hrs) & 58.95 & 58.99 \\
+% \hline
+% \end{tabular}
+% \label{tab:dist3_comparison}
+% \end{table}
+
+% Rahguzar reduced the distance by \textbf{1.2 km}, with a slight increase in time of \textbf{0.04 hours}, indicating comparable efficiency.
 
 \subsection{Summary Across All Distributors}
 
