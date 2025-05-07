@@ -66,29 +66,23 @@ The silhouette score measures how well points are grouped in a clustering task. 
 
     \begin{figure}[ht]
         \centering
-        \begin{subfigure}[b]{0.45\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/7.1.2 hybrid 1 workload.png}
-            \caption{Hybrid Approach-1: Workload Distribution}
-            \label{fig:hybrid1_workload}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[b]{0.45\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/7.1.2 hybrid 2 workload.png}
-            \caption{Hybrid Approach-2: Workload Distribution}
-            \label{fig:hybrid2_workload}
-        \end{subfigure}
-        \caption{Comparison of workload distribution across clusters for Hybrid Approach-1 and Hybrid Approach-2}
-        \label{fig:hybrid_workload_comparison}
+        \includegraphics[width=0.75\textwidth]{images/7.1.2 hybrid 1 workload.png}
+        \caption{Hybrid Approach-1: Workload Distribution across Clusters}
+        \label{fig:hybrid1_workload}
+    \end{figure}
+    
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.75\textwidth]{images/7.1.2 hybrid 2 workload.png}
+        \caption{Hybrid Approach-2: Workload Distribution across Clusters}
+        \label{fig:hybrid2_workload}
     \end{figure}
 
 % From the results in Table~\ref{tab:silhouette_scores}, it can be observed that the Hybrid Approach-2 outperformed all other clustering algorithms, achieving the highest silhouette score of 0.5044 for Distributor 1 and 0.4437 for Distributor 7. This indicates that the clusters formed using this approach were more cohesive and well-separated compared to those formed by the other algorithms.
 % Moreover, it finds a good balance between workload distribution and geographic proximity. For example, for distributor ID 7, there's a little variance in the clusters being formed however, it has the highest silhouette score as geographical proximity has been set as the priority.
-rom the results in Table~\ref{tab:silhouette_scores}, it can be observed that the Hybrid Approach-2 outperformed all other clustering algorithms, achieving the highest silhouette score of 0.5044 for Distributor 1 and 0.4437 for Distributor 7. This indicates that the clusters formed using this approach were more cohesive and well-separated compared to those formed by the other algorithms.
+From the results in Table~\ref{tab:silhouette_scores}, it can be observed that the Hybrid Approach-2 outperformed all other clustering algorithms, achieving the highest silhouette score of 0.5044 for Distributor 1 and 0.4437 for Distributor 7. This indicates that the clusters formed using this approach were more cohesive and well-separated compared to those formed by the other algorithms.
 
-Figure~\ref{fig:hybrid_workload_comparison} further illustrates the comparison between the two hybrid approaches in terms of workload distribution. Although Hybrid Approach-1 achieves a slightly more even distribution of workload across clusters, we prioritize geographical proximity in our clustering strategy. Hybrid Approach-2 still maintains a reasonably balanced workload while significantly improving the spatial coherence of clusters, as reflected by its superior silhouette scores. Hence, Hybrid Approach-2 is selected as the final method due to its stronger emphasis on geographic compactness, which is essential for optimizing travel routes and operational efficiency.
-
+Figures~\ref{fig:hybrid1_workload} and~\ref{fig:hybrid2_workload} present a visual comparison of workload distribution across clusters for the two hybrid approaches. While Hybrid Approach-1 shows a slightly more uniform distribution of workload, we ultimately prefer Hybrid Approach-2. The reason is that, despite the marginally greater variance in workload, it achieves significantly better geographical compactness—an important factor reflected in the higher silhouette scores. Prioritizing geographic proximity helps ensure route optimization and operational feasibility, which outweighs the minor imbalance in workload.
 
 \subsection{Phase 2: Scheduling with Evolutionary Algorithm (EA)} %
 Once clusters have been formed in Phase 1, the next critical step is to generate a feasible schedule that defines which shops should be visited on each day of the planning period (either a single day or a custom range, as selected by the user). The primary objective during scheduling is to balance the workload across both the available days and all assigned orderbookers. This ensures that no orderbooker is disproportionately burdened and that their daily tasks are distributed as evenly as possible.
