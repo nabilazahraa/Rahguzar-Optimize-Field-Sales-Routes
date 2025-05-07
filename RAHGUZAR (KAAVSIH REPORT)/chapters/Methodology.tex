@@ -16,7 +16,7 @@ The PJP problem is modeled as a weekly, constraint-aware variation of the VRPTW.
   \item Routes are geographically compact and operationally realistic
 \end{itemize}
 
-Due to the NP-hard nature of the problem, exact optimization methods are impractical at city scale. Instead, we use a hybrid, heuristic-based approach structured into three phases.
+Due to the NP-hard nature of the problem, exact optimization methods are impractical in a real world setting. Instead, we use a hybrid, heuristic-based approach structured into three phases.
 
 \section{Three-Phase Algorithmic Architecture}
 
@@ -122,11 +122,11 @@ Crossover and mutation operations are applied to refine the population of schedu
 
 \subsection{Route Optimization}
 
-For each day’s assigned store list, the visit sequence is optimized using a two-step approach: a heuristic-based Nearest Neighbor (NN) method followed by optimization with the OR-Tools Traveling Salesman Problem (TSP) Solver.
+Once a feasible schedule is generated during Phase 2, each day's assigned store list undergoes route optimization to minimize travel time and ensure compliance with daily constraints. This process uses a two-step strategy, with the Nearest Neighbor (NN) heuristic integrated into the scheduling phase and the OR-Tools Traveling Salesman Problem (TSP) solver applied afterward for refinement.
 
-\textbf{Step 1: Nearest Neighbor (NN).} A route is constructed starting from the depot by repeatedly selecting the nearest unvisited store. This provides a quick, feasible route with low computational cost, suitable for initialization.
+\textbf{Step 1: Nearest Neighbor (NN) during Scheduling.} During the evolutionary algorithm-based scheduling process, the NN heuristic is used to estimate daily route times. This involves constructing a route starting from the depot and iteratively visiting the nearest unvisited store. It serves as a fast, low-cost approximation to guide constraint checking (e.g., total duration under 480 minutes) and fitness evaluation during schedule generation.
 
-\textbf{Step 2: OR-Tools TSP Solver.} The initial sequence is refined by minimizing the tour length:
+\textbf{Step 2: OR-Tools TSP Solver Post-Scheduling.} After scheduling is complete, each daily route is passed to the OR-Tools TSP Solver for optimization. This solver refines the visiting sequence to minimize total tour length:
 
 \[
 \min \sum_{i=1}^{r-1} D_{i,i+1} + D_{r,1}
@@ -153,9 +153,9 @@ Thus, the routes are constrained to a maximum daily duration of 480 minutes. Thi
 
 % This ensured consistency and readiness for integration into the optimization pipeline.
 The input datasets, provided by SalesFlo in Excel format, were preprocessed using a structured pipeline to ensure data quality and consistency. Parsing and cleaning were performed using Python, followed by merging multiple files based on unique store identifiers. The cleaned and integrated data was then migrated into a PostgreSQL database to enable efficient querying and relational operations. For the pilot implementation, stores were filtered by predefined operational zones to restrict testing to relevant geographic clusters. This preprocessing ensured that the data was normalized, reliable, and ready for direct integration into the clustering, scheduling, and routing optimization pipeline.
-\section{Assumptions}
-To simplify computation and focus on core scheduling and routing challenges, several assumptions were applied throughout the system design. Travel times were treated as static averages, without modeling real-time traffic conditions. All routes were assumed to start and end at a fixed distributor location. Store service durations were considered known and constant across the planning horizon. Additionally, planning was conducted on a weekly basis, excluding Sundays, to align with standard operational cycles. These assumptions allowed the algorithmic components to remain tractable while preserving alignment with real-world FMCG workflows.
-% To maintain focus and computational tractability, the following assumptions were made:
+% \section{Assumptions}
+% To simplify computation and focus on core scheduling and routing challenges, several assumptions were applied throughout the system design. Travel times were treated as static averages, without modeling real-time traffic conditions. All routes were assumed to start and end at a fixed distributor location. Store service durations were considered known and constant across the planning horizon. Additionally, planning was conducted on a weekly basis, excluding Sundays, to align with standard operational cycles. These assumptions allowed the algorithmic components to remain tractable while preserving alignment with real-world FMCG workflows.
+% % To maintain focus and computational tractability, the following assumptions were made:
 
 % \begin{itemize}
 %   \item Static average travel times are used; live traffic is not modeled

@@ -97,7 +97,7 @@ This section outlines the major technical and operational challenges we anticipa
     \textbf{Solution:} Implement a weighted scoring system to prioritize objectives based on business needs and evaluate outputs from multiple algorithms to identify the most efficient and effective solutions.
 
     \item \textbf{API Costs and Performance:} Heavy reliance on mapping APIs, such as Google Maps, could lead to high costs and potentially slow performance when processing large-scale data. \\
-    \textbf{Solution:} Optimize API usage through practices like batch processing and caching to reduce the number of API calls. Additionally, utilize trial phases of these services to test and implement them effectively without exceeding cost limits.
+    \textbf{Solution:} To eliminate dependency on paid APIs and ensure faster processing, we set up an Open Source Routing Machine (OSRM) server locally. This allowed us to perform routing and distance matrix calculations at scale, completely free of cost.    
 
     \item \textbf{Adaptability to Business-Specific Constraints:} Organizations may have unique and variable constraints, such as holidays, visit frequency, or workload preferences, which require flexible accommodation in the route planning system. \\
     \textbf{Solution:} Design the system to allow customization of route parameters and enable managers to manually adjust routes through an intuitive interface, ensuring flexibility for diverse business requirements.

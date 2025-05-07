@@ -59,7 +59,7 @@ The Rahguzar system uses a multi-stage route optimization algorithm composed of 
 \begin{itemize}
     \item \textbf{Clustering:} Stores are grouped based on geographic proximity using density- or centroid-based clustering.
     \item \textbf{Scheduling:} An Evolutionary Algorithm assigns stores to order bookers across a multi-day plan, optimizing workload balance and visit coverage.
-    \item \textbf{Routing:} Store sequences are optimized using road-based routing with OSRM, minimizing total travel time and distance.
+    \item \textbf{Routing:} Store sequences are optimized using road-based routing with OR-Tools, minimizing total travel time and distance.
 \end{itemize}
 The algorithm aims to maximize shop visits, minimize total distance traveled, and reduce overall time, including both travel and in-store duration. It operates under key constraints such as the number of order bookers, shift timings, and fixed visit durations per store, ensuring realistic and efficient route plans.
 

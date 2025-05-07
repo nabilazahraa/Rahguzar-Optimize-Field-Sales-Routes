@@ -1,11 +1,11 @@
-This Software Requirements Specification (SRS) outlines the software and system requirements for Rahguzar, a route optimization project aimed at improving efficiency in retail and distribution. It details functional requirements for system capabilities and non-functional requirements like performance and scalability. The document also includes system block diagrams, use cases, and external interfaces to clarify the system’s design and interactions.
+This Software Requirements Specification (SRS) outlines the software and system requirements for Rahguzar. It details functional requirements for system capabilities and non-functional requirements. This section also includes system block diagrams, use cases, and external interfaces to clarify the system’s design and interactions.
 
 \section{Functional Requirements}
 
 
 % This section describes each function/feature provided by our system. These functions are logically grouped into modules based on their purpose/users/mode of operations etc (as per our system). A functional hierarchy may look like:
 
-The functional requirements for this system focus on creating an efficient journey-planning solution tailored for order bookers and sales representatives. This system is designed to optimize routes based on key operational parameters and provide dynamic rerouting, while also supporting targeted store visits and frequency schedules. Additional modules include a user-friendly web platform, pilot testing and validation, and performance monitoring to ensure enhanced efficiency and measurable sales impact.The following are the functional requirements for each module and their respective functions.
+The functional requirements for this system focus on creating an efficient journey-planning solution tailored for order bookers and sales representatives. This system is designed to optimize plans based on key operational parameters and provide dynamic rerouting, while also supporting targeted store visits and frequency schedules. Additional modules include a user-friendly web platform, and performance monitoring dashboard to ensure enhanced efficiency and measurable impact.The following are the functional requirements for each module and their respective functions.
 
 \subsection*{Module 1: Route Optimization Algorithm}
 \subsubsection*{Function 1: Route Generation}
@@ -35,7 +35,7 @@ The functional requirements for this system focus on creating an efficient journ
 
     \begin{itemize}
         \item It allows users to adjust the generated routes based on their preferences. They can move stores between order bookers and modify store status (e.g., active/inactive).
-        \item It simply enables real-time rerouting, with the algorithm instantly updating the allocation of stores and route paths to reflect user preferences, providing flexibility and adaptability in journey planning.
+        % \item It simply enables real-time rerouting, with the algorithm instantly updating the allocation of stores and route paths to reflect user preferences, providing flexibility and adaptability in journey planning.
     \end{itemize}
 
  
@@ -120,31 +120,31 @@ by allowing custom day plan creation and enable downloads for extended periods, 
     \item Allow users to export optimized or manually adjusted routes in a downloadable format for offline analysis or distribution.
 \end{itemize}
 
-\subsection*{Module 3: Pilot Testing and Validation }
+\subsection*{Module 3: Testing and Validation }
 
 \subsubsection*{Function 1: Test Plan Creation: 
 }
 
 \begin{itemize}
-    \item Develop a comprehensive pilot testing framework to validate the system's effectiveness.
+    \item Develop a comprehensive testing framework to validate the system's effectiveness.
 \end{itemize}
 \subsubsection*{Function 2: Real-World Data Integration: }
 
 \begin{itemize}
-    \item Gather real-world data during pilot testing, ensuring data is accurate and reliable.
+    \item Test on real-world data, such as store profiles, visit frequencies, and geographical details.
 \end{itemize}
 
 \subsubsection*{Function 3: Performance Assessment: }
 \begin{itemize}
-    \item Collect and analyze data (travel time, number of shops visited, sales impact, etc.) to assess system performance.
+    \item Collect and analyze data (travel time, distance travelled, number of shops visited etc.) to assess system performance.
     \item Implement an adjustment process based on pilot feedback to enhance the algorithm.
 \end{itemize}
 
-\subsubsection*{Function 4: Case Study Development: }
+% \subsubsection*{Function 4: Case Study Development: }
 
-\begin{itemize}
-    \item Compile a case study summarizing the outcomes, findings, and system performance.
-\end{itemize}
+% \begin{itemize}
+%     \item Compile a case study summarizing the outcomes, findings, and system performance.
+% \end{itemize}
 
 \subsection*{Module 4: Performance Monitoring and Reporting }
 
@@ -157,12 +157,11 @@ by allowing custom day plan creation and enable downloads for extended periods, 
     \item[] \textbf{Sub Function 1:} Average travel time per route.
     \item[] \textbf{Sub Function 2:} Number of shops visited per shift.
     \item[] \textbf{Sub Function 3:} Number of order bookers required per distribution.
-    \item[] \textbf{Sub Function 4:} Sales uplift due to route optimization.
     \item[] \textbf{Sub Function 5:} Algorithm response time for route recalculations.
 \end{itemize}
  
 
-\subsubsection*{Function 3: Metrics Dashboard:
+\subsubsection*{Function 1: Metrics Dashboard:
 }
 
 \begin{itemize}
@@ -185,7 +184,7 @@ The Non-functional requirements define the quality and performance attributes of
 \begin{enumerate}
     \item \textbf{Scalability, Efficiency, and Memory Optimization}
     \begin{itemize}
-        \item The system is designed to efficiently handle large datasets and scale up to 1000+ stores effectively as the amount of data increases, ensuring optimal performance and quick response times within 2 minutes for route generation.
+        \item The system is designed to efficiently handle large datasets and scale up to 1000 stores effectively as the amount of data increases, ensuring optimal performance and quick response times within 8 minutes for route generation.
         \item It should also have a low memory footprint, ensuring that it can scale effectively without degrading system performance or requiring excessive computational resources.
     \end{itemize}
     
@@ -440,11 +439,11 @@ The system utilizes a containerized instance of the Open Source Routing Machine 
 \begin{itemize}
     \item \textbf{User Authentication and Access Control}
     \begin{itemize}
-        \item \textbf{Description:} Ensure secure access to the system for both managers and field staff.
+        \item \textbf{Description:} Ensure secure access to the system for the managers (distributors),.
         \item \textbf{Actions:}
         \begin{itemize}
             \item As a manager, I want to log in securely to access my dashboard and create journey plans.
-            \item As the system, I need to authenticate users to ensure only authorized managers and field staff access the application.
+            \item As the system, I need to authenticate users to ensure only authorized managers access the application.
         \end{itemize}
     \end{itemize}
     
@@ -514,20 +513,12 @@ The system utilizes a containerized instance of the Open Source Routing Machine 
         \item \textbf{Description:} Track and analyse performance metrics to evaluate route effectiveness.
         \item \textbf{Actions:}
         \begin{itemize}
-            \item As a manager, I want to track KPIs like travel time and visit completion rates to assess route performance and make improvements.
+            \item As a manager, I want to track KPIs like travel time to assess route performance and make improvements.
             \item As the system, I need to automate KPI tracking (e.g., average travel time, total distance, workload) to provide ongoing insights without requiring manual input from managers.
         \end{itemize}
     \end{itemize}
     
-    \item \textbf{System Data Synchronization}
-    \begin{itemize}
-        \item \textbf{Description:} Sync store and route data to ensure accurate and up-to-date information.
-        \item \textbf{Actions:}
-        \begin{itemize}
-            \item As a manager, I want the system to view store information and modify store statuses, giving me reliable data for decision-making.
-            \item As the system, I need to synchronize with external databases to maintain current and accurate store and route data for all users.
-        \end{itemize}
-    \end{itemize}
+
     
 
     
@@ -544,7 +535,7 @@ The system utilizes a containerized instance of the Open Source Routing Machine 
 
 \section{Datasets}
 % This section describes the specific dataset(s) used to build our system. An appropriate snapshot of the dataset(s) is also included. Futher details, when needed, are presented in the appendix.
-This section outlines the primary datasets that will support Rahguzar’s intelligent route planning and scheduling functionalities. These datasets provide crucial information on stores, visits, journey plans, and operational factors essential for optimized route generation. As per the NDA with SalesFlo, we are not permitted to share or disclose the data provided to us. 
+This section outlines the primary datasets that will support Rahguzar’s intelligent route planning and scheduling functionalities. These datasets provide crucial information on stores, visits, journey plans, and operational factors essential for optimized route generation. As per the NDA with SalesFlo, we are not permitted to share or disclose the data provided to us, however this is the structure of the dataset provided to us. 
 \subsection*{Overview of Datasets}
 
 \begin{enumerate}
@@ -625,7 +616,7 @@ Together, these datasets will support Rahguzar’s core functionalities, includi
 \begin{itemize}
     \item \textbf{Efficient Route Planning:} Leveraging store locations, operational statuses, and road networks for optimal routing.
     % \item \textbf{Dynamic Scheduling:} Using order booker shifts and activity requirements to generate flexible schedules aligned with store needs and workforce availability.
-    \item \textbf{Traffic and Geographic Optimization:} Utilizing geographic data to plan routes that avoid congestion and optimize for specific zones or territories.
+    % \item \textbf{Traffic and Geographic Optimization:} Utilizing geographic data to plan routes that avoid congestion and optimize for specific zones or territories.
     % \item \textbf{Geographical Filtering:} Geographical and channel-based categorization from the Store Hierarchy dataset will help managers plan routes tailored to specific regions and sales priorities.
     \item \textbf{Route Efficiency Analysis:} The Visits dataset will provide insights into average visit durations and travel times, which will inform the route optimization algorithm and support KPI tracking for system performance.
 \end{itemize}
