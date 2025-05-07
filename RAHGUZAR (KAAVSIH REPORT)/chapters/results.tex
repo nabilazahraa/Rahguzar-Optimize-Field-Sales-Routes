@@ -80,7 +80,7 @@ stores between clusters to ensure workloads—based on service effort and travel
 
 % Among the tested route optimization algorithms, Google OR-Tools showed the most consistent and optimal performance in minimizing total travel distance and time. While ACO and PSO showed promise in smaller test cases, they frequently got trapped in local optima or exhibited longer computation times in large-scale datasets. OR-Tools, by contrast, delivered high-quality solutions across varying distributor profiles and constraints, making it the most robust choice for route optimization within Rahguzar's pipeline.
 
-\subsection{Phase 2 & 3: Scheduling and Route Optimization}
+\subsection{Phase 2 \& 3: Scheduling and Route Optimization}
 Once clusters are formed, the next step is to assign store visits across the planning period and determine the optimal routes for each orderbooker. This phase ensures balanced workloads, constraint-compliant schedules, and efficient travel routes that minimize operational costs.
 
 To generate daily schedules, multiple scheduling algorithms were tested including Simulated Annealing, Ant Colony Optimization (ACO), Mixed Integer Linear Programming (MILP), and Evolutionary Algorithm (EA). EA emerged as the most effective method due to its ability to maintain genetic diversity, avoid premature convergence, and produce feasible schedules efficiently. The evaluation was driven by a fitness function that penalized violations of hard constraints (e.g., exceeding daily time limits, visit mismatches) and soft constraints (e.g., unbalanced workdays, geographically scattered visits).
