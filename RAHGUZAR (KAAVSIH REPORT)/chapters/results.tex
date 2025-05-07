@@ -1,4 +1,4 @@
-This chapter aims to present the results of the experiments conducted across Rahguzar’s clustering, scheduling, and routing phases to evaluate their impact on route optimization, workload balancing, and service coverage. Each algorithm was tested individually and as part of the integrated pipeline. Additionally, Rahguzar’s performance was benchmarked against Salesflo's existing PJP plans using real distributor datasets, comparing outcomes in terms of total travel distance, execution time, and overall planning efficiency. These were tested under similar parameters such as number of orderbookers and days to ensure fair comparison.
+This chapter aims to present the results of the experiments conducted across Rahguzar’s clustering, scheduling, and routing phases to evaluate their impact on route optimization, workload balancing, and service coverage. Each algorithm was tested individually and as part of the integrated pipeline. Additionally, Rahguzar’s performance was benchmarked against Salesflo using real distributor datasets, comparing outcomes in terms of total travel distance, execution time, and overall planning efficiency.
 
 \section{Algorithmic Phases and Experiment Results}
 
@@ -10,7 +10,7 @@ This section presents the methodology and results from a series of experiments c
 \subsection{Phase 1: Hybrid Clustering Approach}
 % Phase 1 content to be added later.
 The first aim of the algorithm is to divide the list of stores to be serviced into a number of clusters which is determined by the number of orderbookers.
-The \textbf{objective} is to group close stores in the same cluster and ensure that the workload is evenly distirbuted among the orderbookers before servicing the stores as the scheduler will decide.
+The objective is to group close stores in the same cluster, so that the orderbookers can service them as the scheduler will decide.
 To achieve this, clustering algorithms were tested on their own adn in a hybrid approach.
 
 \subsubsection{Clustering Algorithms Tested}
@@ -44,7 +44,7 @@ Moreover, to ensure that optimal clusters were being made, cluster balancing was
 stores between clusters to ensure workloads—based on service effort and travel time—are roughly equal.
  Overloaded clusters transfer nearby stores to underloaded ones, and this process repeats until workloads fall within a set tolerance or a maximum number of iterations is reached, promoting fair and efficient distribution.
 
-\subsection{Phase 1: Experiment Results}
+\subsection{Phase 1: Experiments Results}
 The silhouette score measures how well points are grouped in a clustering task. It checks if points are close to others in their own cluster, indicating a good score, or if they are far from points in other clusters (also good score). The score ranges from -1 to 1, where 1 means perfect clusters, 0 means overlap, and negative scores indicate that points might be in the wrong cluster.
 
 \begin{table}[H]
